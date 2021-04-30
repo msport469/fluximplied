@@ -1,0 +1,12 @@
+mouse gene symbol,mouse entrez,human gene symbol,human entrez,metabolic reaction
+Pfkm,,PFKM,,glycolysis
+Pfkl,,PFKL,,glycolysis
+Fbp1,,FBP1,,gluconeogenesis
+Idh2,,IDH2,,TCA cycle
+Gys1,,GYS1,,Glycogen synthesis
+Pygl,,PYGL,,glycogenolysis
+Ppat,,PPAT,,de novo purine synthesis
+Cad,,CAD,,de novo pyrimidine synthesis
+Cps1,,CPS1,,urea cycle
+Acaca,,ACACA,,fatty acid synthesis
+Cpt1a,,CPT1A,,beta oxidation of fatty acids
