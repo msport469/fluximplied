@@ -1,12 +1,12 @@
-mouse gene symbol,mouse entrez,human gene symbol,human entrez,metabolic reaction
-Pfkm,,PFKM,,glycolysis
-Pfkl,,PFKL,,glycolysis
-Fbp1,,FBP1,,gluconeogenesis
-Idh2,,IDH2,,TCA cycle
-Gys1,,GYS1,,Glycogen synthesis
-Pygl,,PYGL,,glycogenolysis
-Ppat,,PPAT,,de novo purine synthesis
-Cad,,CAD,,de novo pyrimidine synthesis
-Cps1,,CPS1,,urea cycle
-Acaca,,ACACA,,fatty acid synthesis
-Cpt1a,,CPT1A,,beta oxidation of fatty acids
+"","mouse.gene.symbol","mouse.entrez","human.gene.symbol","human.entrez","metabolic.reaction"
+"1","Pfkm","18642","PFKM","5213","glycolysis"
+"2","Pfkl","18641","PFKL","5211","glycolysis"
+"3","Fbp1","14121","FBP1","2203","gluconeogenesis"
+"4","Idh2","269951","IDH2","3418","TCA cycle"
+"5","Gys1","14936","GYS1","2997","Glycogen synthesis"
+"6","Pygl","110095","PYGL","5836","glycogenolysis"
+"7","Ppat","231327","PPAT","5471","de novo purine synthesis"
+"8","Cad","69719","CAD","790","de novo pyrimidine synthesis"
+"9","Cps1","227231","CPS1","1373","urea cycle"
+"10","Acaca","107476","ACACA","31","fatty acid synthesis"
+"11","Cpt1a","12894","CPT1A","1374","beta oxidation of fatty acids"

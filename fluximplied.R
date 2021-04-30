@@ -1,10 +1,10 @@
 library(org.Mm.eg.db)
 library(enrichR)
-dbs <- listEnrichrDbs()
+#dbs <- listEnrichrDbs()
 genes<-c('Cpt1a','Idh2','Acadl')
-db<-c('KEGG_2019_Mouse')
+#db<-c('KEGG_2019_Mouse')
 res<-enrichr(genes,db)
-kegg<-res[[1]]
+#kegg<-res[[1]]
 RLSgenes<-c('Pfk1','Fbp1','Idh2','Gys1','Pygl','Ppat','Cpsii','Cpsi','ACAC','Cpt1a')
 mapIds(org.Mm.eg.db,keys = RLSgenes,column = 'ENTREZID',keytype = 'SYMBOL')
 intersect(genes,RLSgenes)
@@ -65,7 +65,7 @@ lengthintersect
 
 
 
-test<-read.csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv')
+RLSdatabase<-read.csv('https://raw.githubusercontent.com/msport469/fluximplied/master/RLSdatabase.csv?token=ANC4YV6CMWQ3MBVHDWILXG3ARNO56')
 
 
 
