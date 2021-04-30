@@ -1,5 +1,5 @@
 # fluximplied
-These R functions assist in the generation of hypotheses for flux analysis from transciptomic or metabalomic data. 
+These R functions assist in the generation of hypotheses for flux analysis from transciptomic or metabalomic data. Install instructions and how to use these functions are below.
 # Author
 Mike Sportiello. You can contact us at Michael_Sportiello@urmc.rochester.edu.
 # Other contributors
@@ -13,6 +13,10 @@ I think most of us would agree that higher levels of the enzyme that is the rate
 
 # The solution
 Here, we present the function fluximplied (as well as the functions it depends on. Fluximplied needs a gene list, the species that your genes are from (it currently accepts only mouse and human), as well as how those genes are encoded (as official gene symbols or official ENTREZIDs). We have created a publicly accessible database of rate limiting steps and the gene that encodes them. The function compares your supplied gene list with this database and looks for overlaps, and then returns those overlaps to help you generate hypotheses and followup analyses with flux balance analysis or other functional assays. 
+# How to use/install
+simply use this function in your R script (ensure you have an internet connection:
+`source('https://raw.githubusercontent.com/msport469/fluximplied/master/fluximplied.R`
+Or navigate to the `fluximplied.R` function here on github, and download it/copy and paste it. We offer all this code for free and in open source, and only ask you cite us in return so other people can learn about this and help contribute.
 
 # Some notes
 This software is not currently compatabile with other formats beyond symbols or ENTREZIDs (we recommend using the MapIds function from Org.Mm.eg.db / Org.Hs.eg.db and AnnotationDbi to convert it to one of these formats in R, though other options exist).
