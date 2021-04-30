@@ -14,7 +14,7 @@ specform <- function(species,format) {
 fluximplied <- function(genes,species,format) {
   # function to see if there are any rate limiting steps in gene list
   #load the rate limiting step database
-  #RLSdatabase<-read.csv('https://raw.githubusercontent.com/msport469/fluximplied/master/RLSdatabase.csv?token=ANC4YV6CMWQ3MBVHDWILXG3ARNO56',stringsAsFactors = F)
+  RLSdatabase<-read.csv('https://raw.githubusercontent.com/msport469/fluximplied/master/RLSdatabase.csv',stringsAsFactors = F)
   #convert the database that matches your data for species and format (Symbol or ENTREZID)
   RLSgenes<-specform(species,format)
   #save the pathways
@@ -41,8 +41,8 @@ fluximplied <- function(genes,species,format) {
   subset
 }
 
-#this is a test function
-genes<-c('Idh2','Cpt1a')
+#this is an example function
+genes<-c('Idh2','Cpt1a','Ifng')
 species<-'Mmu'
 format<-'Symbol'
 fluximplied(genes=genes,species=species,format=format)
