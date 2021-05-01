@@ -17,7 +17,7 @@ Here, we present the function fluximplied (as well as the functions it depends o
 # How to use/install
 simply use this function in your R script (ensure you have an internet connection):
 
-`source('https://raw.githubusercontent.com/msport469/fluximplied/master/fluximplied.R')`
+`source('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/fluximplied.R')`
 
 Or navigate to the `fluximplied.R` function here on github, and download it/copy and paste it. We offer all this code for free and in open source, and only ask you cite us in return so other people can learn about this and help contribute.
 
