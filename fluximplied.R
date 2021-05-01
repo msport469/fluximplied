@@ -1,12 +1,14 @@
 #create a function that makes sure the user formatted their data according to species and format correctly. 
 #If you tell the function you are giving us symbols when you are not, or otherwise lie to the function, it will give spurious results.
 specform <- function(species,format) {
-  ifelse(species=='Mmu', 
+  ifelse(species=='Mmu' || species=='MMU' || species=='mmu', 
          ifelse(format=='Symbol', RLSgenes<-RLSdatabase$mouse.gene.symbol, 
-                ifelse(format=='ENTREZID', RLSgenes<-RLSdatabase$mouse.entrez, print('Your species was accepted as Mmu, but your format was neither Symbol nor ENTREZID'))), 
-         ifelse(species=='Hsa',
-                ifelse(format=='Symbol', RLSgenes<-RLSdatabase$human.gene.symbol,
-                       ifelse(format=='ENTREZID', RLSgenes<-RLSdatabase$human.entrez,print('Your species was accepted as Hsa, but your format was neither Symbol nor ENTREZID'))),
+                ifelse(format== 'Entrezid'||format=='ENTREZ'||format=='Entrez'||format=='entrez'||format=='entrezid'||format=='ENTREZID',
+                       RLSgenes<-RLSdatabase$mouse.entrez, print('Your species was accepted as Mmu, but your format was neither Symbol nor ENTREZID'))), 
+         ifelse(species=='Hsa'||species=='hsa'||species=='HSA',
+                ifelse(format=='Symbol'||format=='SYMBOL'||format=='symbol', RLSgenes<-RLSdatabase$human.gene.symbol,
+                       ifelse(format== 'Entrezid'||format=='ENTREZ'||format=='Entrez'||format=='entrez'||format=='entrezid'||format=='ENTREZID',
+                              RLSgenes<-RLSdatabase$human.entrez,print('Your species was accepted as Hsa, but your format was neither Symbol nor ENTREZID'))),
                 print('Your species must be Mmu or Hsa')))
   RLSgenes<<-RLSgenes
 }
@@ -42,7 +44,7 @@ fluximplied <- function(genes,species,format) {
 }
 
 #this is an example function
-genes<-c('Idh2','Cpt1a','Ifng')
-species<-'Mmu'
-format<-'Symbol'
-fluximplied(genes=genes,species=species,format=format)
+#genes<-c('Idh2','Cpt1a','Ifng')
+#species<-'mmu'
+#format<-'Symbol'
+#fluximplied(genes=genes,species=species,format=format)
