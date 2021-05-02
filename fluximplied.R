@@ -54,53 +54,26 @@ fluximplied <- function(input,species,geneformat,inputformat,padjcolname) {
   subset
 }
 
+#uncomment the line below this and load this for an exampledeseq result. This is the deseqresult that was put in as the argument to "as.data.frame()". 
+#See code that generated this example below.
+#exampledeseqresultdataframe<-read.csv('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/exampledeseqresultdataframe.csv',row.names = c(1))
+#You would want to subset this data frame on either positive or negative LFC values, to determine whether or not the effects are positive or negative. There is a filter built into the function to subset on padjadj (adjusting the adjusted p values when we test for significance) after we perform our statistical test. 
 
-#load example deseqresult
-example<-readRDS('exampledeseqresult2.RDS')
-exampledf<-as.data.frame(example)
-#input=c('Tnfa','Cpt1a')
-input=exampledf
-inputformat='df'
-species='Mmu'
-geneformat='Symbol'
-padjcolname='weighted_pvalue'
-
-fluximplied(input,
-            species,
-            geneformat,
-            inputformat,
-            padjcolname)
-
-
-
-
-#load example deseqresult
+#The code from this line up until the line below was used to generate the example
 #example<-readRDS('exampledeseqresult2.RDS')
 #exampledf<-as.data.frame(example)
-#head(exampleresult)
-#dim(exampleresult)
+#write.csv(exampledf,'exampledeseqresultdataframe.csv')
+#------------------------------------------------------
 
-
-#``````````````````````
-input<-subset(input,rownames(input) %in% RLSgenes)
-#head(input)
-#dim(input)
-#input$padjadj<-p.adjust(input$padj,method = 'BH')
-input$padjadj<-p.adjust(input[[padjcolname]],method = 'BH')
-#head(input)
-#dim(input)
-inputssubset<-subset(input,input$padjadj<.05)
-#head(inputssubset)
-#dim(inputssubset)
-rownames(inputssubset)
-#``````````````````````
-
-species='Mmu'
-geneformat='Symbol'
-padjcolname<-'weighted_pvalue'
-
-#this is an example function
-#genes<-c('Idh2','Cpt1a','Ifng')
-#species<-'mmu'
-#geneformat<-'Symbol'
-#fluximplied(genes=genes,species=species,geneformat=geneformat)
+#UNCOMMENT EVERYTHING BELOW THIS TO TEST THE FUNCTION
+#input=c('Tnfa','Cpt1a')
+#input=exampledf
+#inputformat='vector'
+#species='Mmu'
+#geneformat='Symbol'
+#padjcolname='weighted_pvalue'
+#fluximplied(input,
+#            species,
+#            geneformat,
+#            inputformat,
+#            padjcolname)
