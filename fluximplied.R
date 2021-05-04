@@ -178,10 +178,31 @@ fluximplied <- function(input,species,geneformat,inputformat,padjcolname) {
                paste('There are no genes in your set that are in our rate limiting step database. Make sure you gave the correct species (Mmu or Hsa only) and geneformat (Symbol or ENTREZID only). Your genes should be in a character vector. Sorry about that. We are as sad as you.'),
                {paste0('Your gene set has --------> ',lengthintersect,' <-------- genes that have been identified as encoding enzymes involved as rate-limiting steps in the gene set you provided. Your RLS genes are saved as myRLSgenes and a dataframe of genes and corresponding pathways is saved as myRLStable')}))
   #save the outputs so the user can hold onto them and look at them
+<<<<<<< HEAD
   myRLStable<<-subset
   myRLSgenes<<-intersect(RLS$RLSgenes,input)
   #print the RLS database that has been subset to only include genes that are in user's list
   subset
+=======
+   myRLStable<<-subset
+   myRLSgenes<<-intersect(RLS$RLSgenes,input)
+  ifelse(inputformat=='df'||inputformat=='DF'||inputformat=='Df'||inputformat=='dataframe'||inputformat=='Dataframe',
+         {significancetable<-inputssubset
+         significancetable$metabolicrxn <- myRLStable$`Pathway associated with gene`[match(rownames(significancetable), myRLStable$`RLS genes in your set`)]
+         significancetable<<-significancetable
+         ifelse (!require(ggplot2),stop("ggplot2 not installed"),1+1)
+         ifelse (!require(viridis),stop("viridis not installed"),1+1)
+         fluximpliedplot<<-ggplot(significancetable, aes(x=reorder(metabolicrxn,log2FoldChange), y=log2FoldChange , label=log2FoldChange)) + 
+           geom_bar(stat='identity', aes(fill=padjadj), width=.5,position="dodge")  +
+           scale_fill_viridis() + 
+           labs(title= "Pathway analysis with 'fluximplied'",x='Metabolic pathway',y='Log fold change',fill='Padjadj') +
+           theme(axis.title = element_text(size=12),
+                 axis.text = element_text(size=12))+
+           coord_flip()
+         plot(fluximpliedplot)},
+         print(subset))
+
+>>>>>>> 2fd4da13ef2b6d1a778ed740ca4b167a114f61d7
 }
 
 
@@ -217,6 +238,7 @@ sub
 #------------------------------------------------------
 
 #UNCOMMENT EVERYTHING BELOW THIS TO TEST THE FUNCTION
+<<<<<<< HEAD
 #input=c('Tnfa','Cpt1a')
 #input=exampledf
 #inputformat='vector'
@@ -228,3 +250,21 @@ sub
 #            geneformat,
 #            inputformat,
 #            padjcolname)
+=======
+input=c('Tnfa','Cpt1a')
+input=exampledeseqresultdataframe
+inputup<-subset(exampledeseqresultdataframe,exampledeseqresultdataframe$log2FoldChange > 0)
+inputdown<-subset(exampledeseqresultdataframe,exampledeseqresultdataframe$log2FoldChange < 0)
+
+inputformat='df'
+species='Mmu'
+geneformat='Symbol'
+padjcolname='weighted_pvalue'
+
+fluximplied(input,
+            species,
+            geneformat,
+            inputformat,
+            padjcolname)
+
+>>>>>>> 2fd4da13ef2b6d1a778ed740ca4b167a114f61d7
