@@ -51,10 +51,21 @@ fluximplied <- function(input,species,geneformat,inputformat,padjcolname) {
    myRLStable<<-subset
    myRLSgenes<<-intersect(RLS$RLSgenes,input)
   ifelse(inputformat=='df'||inputformat=='DF'||inputformat=='Df'||inputformat=='dataframe'||inputformat=='Dataframe',
-         {significancetable<<-inputssubset
-         print(inputssubset)},
+         {significancetable<-inputssubset
+         significancetable$metabolicrxn <- myRLStable$`Pathway associated with gene`[match(rownames(significancetable), myRLStable$`RLS genes in your set`)]
+         significancetable<<-significancetable
+         ifelse (!require(ggplot2),stop("ggplot2 not installed"),1+1)
+         ifelse (!require(viridis),stop("viridis not installed"),1+1)
+         fluximpliedplot<<-ggplot(significancetable, aes(x=reorder(metabolicrxn,log2FoldChange), y=log2FoldChange , label=log2FoldChange)) + 
+           geom_bar(stat='identity', aes(fill=padjadj), width=.5,position="dodge")  +
+           scale_fill_viridis() + 
+           labs(title= "Pathway analysis with 'fluximplied'",x='Metabolic pathway',y='Log fold change',fill='Padjadj') +
+           theme(axis.title = element_text(size=12),
+                 axis.text = element_text(size=12))+
+           coord_flip()
+         plot(fluximpliedplot)},
          print(subset))
-  #print the RLS database that has been subset to only include genes that are in user's list
+
 }
 
 fluximplied(input,
@@ -74,8 +85,11 @@ exampledeseqresultdataframe<-read.csv('https://raw.githubusercontent.com/sportie
 #------------------------------------------------------
 
 #UNCOMMENT EVERYTHING BELOW THIS TO TEST THE FUNCTION
-#input=c('Tnfa','Cpt1a')
+input=c('Tnfa','Cpt1a')
 input=exampledeseqresultdataframe
+inputup<-subset(exampledeseqresultdataframe,exampledeseqresultdataframe$log2FoldChange > 0)
+inputdown<-subset(exampledeseqresultdataframe,exampledeseqresultdataframe$log2FoldChange < 0)
+
 inputformat='df'
 species='Mmu'
 geneformat='Symbol'
@@ -86,3 +100,4 @@ fluximplied(input,
             geneformat,
             inputformat,
             padjcolname)
+
