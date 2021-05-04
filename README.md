@@ -1,7 +1,7 @@
 # fluximplied
 These R functions assist in the generation of hypotheses for flux analysis from transciptomic or metabalomic data. Install instructions and how to use these functions are below.
 # Authors, contributors, and more
-* Mike Sportiello, Rohith Palli, and Dave Topham
+* Mike Sportiello, Rohith Palli PhD, Adam Geber, and Dave Topham PhD
 * You can contact us at Michael_Sportiello@urmc.rochester.edu.
 
 We would love if others helped contribute to the public database of rate limiting steps (see more below). If you're willing to help, we would love to credit your contribution here as well as with a certificate that officially declares you a super cool, super nice person. The database, in its current form, is limited to some of the more commonly discussed pathways like glycolysis or the citric acid cycle (TCA cycle). We would love to expand it. 
