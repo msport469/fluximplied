@@ -1,10 +1,10 @@
-source('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/fluximplied.R')
+#source('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/fluximplied.R')
 inputformat='df'
 species='Mmu'
 geneformat='Symbol'
 padjcolname='weighted_pvalue'
 exampledeseqresultdataframe<-read.csv('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/exampledeseqresultdataframe.csv',row.names = c(1))
-input=exampledeseqresultdataframe
+inputdat=exampledeseqresultdataframe
 
 fluximplied(input,
             species,
