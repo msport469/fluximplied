@@ -10,7 +10,6 @@
 library(shiny)
 library(Cairo)
 if (interactive()) {
-  source("./fluximplied.R") 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
 
@@ -39,6 +38,7 @@ ui <- fluidPage(
         mainPanel(
           textOutput(outputId = "text"),
           textOutput(outputId = "text2"),
+          textOutput(outputId = "flux"),
           
           
           tableOutput(outputId = 'table'),
@@ -55,18 +55,19 @@ ui <- fluidPage(
 #exampledeseqresultdataframe<-read.csv('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/exampledeseqresultdataframe.csv',row.names = c(1))
 #inputdat=exampledeseqresultdataframe
 server <- function(input, output) {
+  source("./fluximplied.R")
   output$table <- renderTable({
     data.frame(input$species,input$geneformat,input$inputformat,input$padjcolname)
   })
   #output$table2 <- renderTable(head({inputdat}),rownames = T)
   output$significancetable <- renderTable(significancetable,rownames = T)
   output$plot<-renderPlot(fluximpliedplot)
-  #shinyfluximplied<-reactive({fluximplied(inputdat=inputdat,species=input$species,
-  #                                        geneformat=input$geneformat,
-  #                                        inputformat=input$inputformat,
-  #                                        padjcolname+input$padjcolname,
-  #                                        pcutoff=input$pcutoff
-  #)}) 
+  output$flux<-renderText(reactive({fluximplied(inputdat=inputdat,species=input$species,
+                                          geneformat=input$geneformat,
+                                          inputformat=input$inputformat,
+                                          padjcolname=input$padjcolname,
+                                          pcutoff=input$pcutoff
+  )})) 
   #output$out<-shinyfluximplied()
   
 
