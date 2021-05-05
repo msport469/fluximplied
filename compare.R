@@ -6,6 +6,7 @@ library(enrichR)
 exampledeseqresultdataframe<-read.csv('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/exampledeseqresultdataframe.csv',row.names = c(1))
 inputdat=exampledeseqresultdataframe
 inputdatgsea<-inputdat
+inputdat$gene<-rownames(inputdat)
 inputdatgsea <- inputdatgsea[inputdatgsea[,"weighted_pvalue"]<0.05,]
 inputdatgseaup <- inputdatgsea[inputdatgsea[,"log2FoldChange"]>0,]
 inputdatgseadown <- inputdatgsea[inputdatgsea[,"log2FoldChange"]<0,]
