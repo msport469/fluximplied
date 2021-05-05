@@ -4,11 +4,6 @@ ui <-sidebarLayout(
   
   # Sidebar panel for inputs ----
   sidebarPanel(
-    input<-fileInput("inputdat", "Choose CSV File of DESeq2 results",
-              accept = c(
-                "text/csv",
-                "text/comma-separated-values,text/plain",
-                ".csv")),
     species<-selectInput("species", "Species", 
                 c('Mouse'='Mmu',
                   'Human'='Hsa')),
@@ -16,7 +11,7 @@ ui <-sidebarLayout(
                 c('Symbol','ENTREZID')),
     inputformat<-selectInput('inputformat','Input format',
                 c('Vector','Dataframe')),
-    padjcolname<-selectInput("padjcolname", "Column with adjusted p values",c(colnames(input))),
+    padjcolname<-selectInput("padjcolname", "Column with adjusted p values",c(colnames(inputdat))),
     pcutoff<-sliderInput("Padjadj cutoff", "Padjadj cutoff",
                            min = 0, max = 0.2,
                            value = .05)
