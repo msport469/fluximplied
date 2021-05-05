@@ -1,9 +1,9 @@
 #create a function that makes sure the user formatted their data according to species and format correctly. 
 #If you tell the function you are giving us symbols when you are not, or otherwise lie to the function, it will give spurious results.
 specform <- function(species,geneformat) {
-  RLSdatabase<-read.csv('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/RLSdatabase.csv',stringsAsFactors = F)
+  RLSdatabase<<-read.csv('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/RLSdatabase.csv',stringsAsFactors = F)
   ifelse(species=='Mmu' || species=='MMU' || species=='mmu', 
-         ifelse(geneformat=='Symbol', RLSgenes<-RLSdatabase$mouse.gene.symbol, 
+         ifelse(geneformat=='Symbol'||geneformat=='SYMBOL'||geneformat=='symbol', RLSgenes<-RLSdatabase$mouse.gene.symbol, 
                 ifelse(geneformat== 'Entrezid'||geneformat=='ENTREZ'||geneformat=='Entrez'||geneformat=='entrez'||geneformat=='entrezid'||geneformat=='ENTREZID',
                        RLSgenes<-RLSdatabase$mouse.entrez, print('Your species was accepted as Mmu, but your geneformat was neither Symbol nor ENTREZID'))), 
          ifelse(species=='Hsa'||species=='hsa'||species=='HSA',
@@ -14,10 +14,10 @@ specform <- function(species,geneformat) {
   RLSgenes<<-RLSgenes
 }
 
-fluximplied <- function(inputdat,species,geneformat,inputformat,padjcolname='adj_pvalue',pcutoff=0.05) {
+fluximplied <- function(inputdat,species,geneformat,inputformat,padjcolname='adj_pvalue',pcutoff=0.05,lfccolumn='log2FoldChange') {
   # function to see if there are any rate limiting steps in gene list
   #load the rate limiting step database
-  RLSdatabase<-read.csv('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/RLSdatabase.csv',stringsAsFactors = F)
+  #RLSdatabase<-read.csv('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/RLSdatabase.csv',stringsAsFactors = F)
   #convert the database that matches your data for species and geneformat (Symbol or ENTREZID)
   RLSgenes<-specform(species,geneformat)
   #save the pathways

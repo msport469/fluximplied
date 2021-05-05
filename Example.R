@@ -6,13 +6,11 @@ padjcolname='weighted_pvalue'
 exampledeseqresultdataframe<-read.csv('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/exampledeseqresultdataframe.csv',row.names = c(1))
 inputdat=exampledeseqresultdataframe
 
-fluximplied(input,
+fluximplied(inputdat,
             species,
             geneformat,
             inputformat,
             padjcolname)
-
-
 
 
 
