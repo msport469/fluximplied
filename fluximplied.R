@@ -14,10 +14,10 @@ specform <- function(species,geneformat) {
   RLSgenes<<-RLSgenes
 }
 
-fluximplied <- function(inputdat,species,geneformat,inputformat,padjcolname='adj_pvalue',pcutoff=0.05,lfccolumn='log2FoldChange') {
+fluximplied <- function(inputdat,species,geneformat,inputformat,padjcolname='adj_pvalue',pcutoff=0.05) {
   # function to see if there are any rate limiting steps in gene list
   #load the rate limiting step database
-  #RLSdatabase<-read.csv('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/RLSdatabase.csv',stringsAsFactors = F)
+  RLSdatabase<-read.csv('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/RLSdatabase.csv',stringsAsFactors = F)
   #convert the database that matches your data for species and geneformat (Symbol or ENTREZID)
   RLSgenes<-specform(species,geneformat)
   #save the pathways
@@ -63,8 +63,9 @@ fluximplied <- function(inputdat,species,geneformat,inputformat,padjcolname='adj
            theme(axis.title = element_text(size=12),
                  axis.text = element_text(size=12))+
            coord_flip()
-         plot(fluximpliedplot)}#,
+         plot(fluximpliedplot)
         # print(subset)
+         }
         )
 }
 
