@@ -14,7 +14,7 @@ specform <- function(species,geneformat) {
   RLSgenes<<-RLSgenes
 }
 
-fluximplied <- function(inputdat,species,geneformat,inputformat,padjcolname='adj_pvalue',pcutoff=0.05) {
+fluximplied <- function(inputdat,species='Mmu',geneformat='Symbol',inputformat='df',padjcolname='adj_pvalue',pcutoff=0.05) {
   # function to see if there are any rate limiting steps in gene list
   #load the rate limiting step database
   RLSdatabase<-read.csv('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/RLSdatabase.csv',stringsAsFactors = F)
@@ -43,9 +43,9 @@ fluximplied <- function(inputdat,species,geneformat,inputformat,padjcolname='adj
   #create an intersect so we can actually count them
   intersect<-intersect(inputdat,RLSgenes)
   lengthintersect<-length(intersect)
-  print(ifelse(lengthintersect==0,
-               paste('There are no genes in your set that are in our rate limiting step database. Make sure you gave the correct species (Mmu or Hsa only) and geneformat (Symbol or ENTREZID only). Your genes should be in a character vector. Sorry about that. We are as sad as you.'),
-               {paste0('Your gene set has --------> ',lengthintersect,' <-------- genes that have been identified as encoding enzymes involved as rate-limiting steps in the gene set you provided. Your RLS genes are saved as myRLSgenes and a dataframe of genes and corresponding pathways is saved as myRLStable')}))
+  ifelse(lengthintersect==0,
+               print1<<-(paste('There are no genes in your set that are in our rate limiting step database. Make sure you gave the correct species (Mmu or Hsa only) and geneformat (Symbol or ENTREZID only). Your genes should be in a character vector. Sorry about that. We are as sad as you.')),
+               {print1<-(paste0('Your gene set has --------> ',lengthintersect,' <-------- genes that have been identified as encoding enzymes involved as rate-limiting steps in the gene set you provided. If you are running this from Rstudio or the command line (not the interactive app), your RLS genes are saved as myRLSgenes and a dataframe of genes and corresponding pathways is saved as myRLStable.'))})
   #save the outputs so the user can hold onto them and look at them
   myRLStable<<-subset
   myRLSgenes<<-intersect(RLS$RLSgenes,inputdat)
@@ -58,14 +58,11 @@ fluximplied <- function(inputdat,species,geneformat,inputformat,padjcolname='adj
          ifelse (!require(viridis),stop("viridis not installed"),1+1)
          fluximpliedplot<<-ggplot(significancetable, aes(x=reorder(metabolicrxn,log2FoldChange), y=log2FoldChange , label=log2FoldChange)) + 
            geom_bar(stat='identity', aes(fill=padjadj), width=.5,position="dodge")  +
-           scale_fill_viridis() + 
+           scale_fill_viridis(end=.9) + 
            labs(title= "Pathway analysis with 'fluximplied'",x='Metabolic pathway',y='Log fold change',fill='Padjadj') +
            theme(axis.title = element_text(size=12),
                  axis.text = element_text(size=12))+
            coord_flip()
-         plot(fluximpliedplot)
-        # print(subset)
-         }
-        )
+         plot(fluximpliedplot)},1+1)
+  print(print1)
 }
-

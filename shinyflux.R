@@ -9,19 +9,47 @@
 
 library(shiny)
 library(Cairo)
+library(shinythemes)
+fields <- c('inputdat',
+            "species",
+            "geneformat",
+            "inputformat",
+            'padjcolname',
+            'pcutoff')
+#exampledeseqresultdataframe<-read.csv('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/exampledeseqresultdataframe.csv',row.names = c(1))
+inputdat=exampledeseqresultdataframe
+source("./fluximplied.R")
+saveData <- function(data) {
+  data <- as.data.frame(t(data))
+  if (exists("responses")) {
+    responses <<- rbind(responses, data)
+  } else {
+    responses <<- data
+  }
+}
+
+loadData <- function() {
+  if (exists("responses")) {
+    responses
+  }
+}
 if (interactive()) {
 # Define UI for application that draws a histogram
 ui <- fluidPage(
+  shinythemes::themeSelector(),  # <--- Add this somewhere in the UI
 
     # Application title
-    titlePanel("shinyflux"),
+    titlePanel("shinyfluximplied"),
+    
     
     # Sidebar with a slider input for number of bins 
     sidebarLayout(
         sidebarPanel(
             #fileInput("datafile", "Choose CSV File", accept = ".csv"),
             #checkboxInput("header", "Header", TRUE),
-            selectInput("species", "Species", 
+          selectInput("inputdat", "inputdat", 
+                      c('inputdat'='inputdat')),  
+          selectInput("species", "species", 
                                  c('Mouse'='Mmu',
                                    'Human'='Hsa')),
             selectInput('geneformat','Gene format',
@@ -29,117 +57,50 @@ ui <- fluidPage(
             selectInput('inputformat','Input format',
                                      c('Dataframe','Vector')),
             selectInput("padjcolname", "Column with adjusted p values",c(colnames(inputdat))),
-           # sliderInput("Padjadj cutoff", "Padjadj cutoff",
-          #                       min = 0, max = 0.2,
-           #                      value = .05)
+            sliderInput("pcutoff", "Padjadj cutoff",
+                                 min = 0, max = 0.2,
+                                 value = .05),
+            actionButton("submit", "Submit")
         ),
 
         # Show a plot of the generated distribution
         mainPanel(
-          textOutput(outputId = "text"),
-          textOutput(outputId = "text2"),
-          textOutput(outputId = "flux"),
-          
-          
           tableOutput(outputId = 'table'),
-          tableOutput(outputId = 'table2'),
-          #tableOutput(outputId = 'significancetable')
-          #textOutput(outputId = 'fluxshiny'),
-          tableOutput(outputId = 'significancetable'),
-          plotOutput(outputId = 'plot')
+          plotOutput(outputId = 'plot'),
+          textOutput(outputId = "print"),
         )
     )
 )
-
-# Define server logic required to draw a histogram
-#exampledeseqresultdataframe<-read.csv('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/exampledeseqresultdataframe.csv',row.names = c(1))
-#inputdat=exampledeseqresultdataframe
-server <- function(input, output) {
-  source("./fluximplied.R")
-  output$table <- renderTable({
-    data.frame(input$species,input$geneformat,input$inputformat,input$padjcolname)
-  })
-  #output$table2 <- renderTable(head({inputdat}),rownames = T)
-  output$significancetable <- renderTable(significancetable,rownames = T)
-  output$plot<-renderPlot(fluximpliedplot)
-  output$flux<-renderText(reactive({fluximplied(inputdat=inputdat,species=input$species,
-                                          geneformat=input$geneformat,
-                                          inputformat=input$inputformat,
-                                          padjcolname=input$padjcolname,
-                                          pcutoff=input$pcutoff
-  )})) 
-  #output$out<-shinyfluximplied()
+server = function(input, output, session) {
   
-
-  
-  #  output$text <- renderText({
-  #  as.character(paste(input$pcutoff))
-  #})
-#  dataframe<-reactive({
-#    if (is.null(input$datafile))
-#      return(NULL)                
-#    inputdat<-read.csv(input$datafile$datapath,row.names = c(1))
-#    })
-#  output$table <- renderTable({
-#    head(inputdat)
-#  })
-  
-#  
-
-# output$answer <-renderTable({
-#   shinfluximp<-shinyfluximplied()
-#   #shinfluximp<-unlist(shinfluximp)
-#   print(shinfluximp[[1]])})
-  
- # fileInputin <-reactive({input$file1
-#  })
-#  
-#  speciesin <- reactive({(input$species)
-#  })
-#  geneformatin <- reactive({(input$geneformat)
-#  })
-#  inputformatin <- reactive({
-#    switch(input$inputformat,
-#           "Dataframe" = Dataframe,
-#           "Vector" = Vector)
-#  })
-#  padjcolin <- reactive({input$padjcol
-#  })
-#  padjcutoffin <- reactive({input$padjcutoff
-#  })
-#  
-#  df <- reactive({
-#    table(speciesin,geneformatin)
-#  })
-#  
-#  output$table<-renderTable(df())
-  
- # speciesinput <- reactive({
- #   switch(input$species,
- #          'Mouse'=Mmu,
- #          'Human'=Hsa)})
-#  speciesinput <- reactive({
-#    switch(input$species)})
-  
-
- #   output$fluximpliedout<-fluximplied(inputdat=input$file1,
- #               species=speciesinput,
-  #              geneformat=input$geneformat,
-  #              inputformat=input$inputformat,
-  #              padjcolname=input$padjcolname,
-  #              pcutoff=input$pcutoff)
-#    output$distPlot <- renderPlot({
-#        ggplot(significancetable, aes(x=reorder(metabolicrxn,log2FoldChange), y=log2FoldChange , label=log2FoldChange)) + 
-#            geom_bar(stat='identity', aes(fill=padjadj), width=.5,position="dodge")  +
-#            scale_fill_viridis() + 
-#            labs(title= "Pathway analysis with 'fluximplied'",x='Metabolic pathway',y='Log fold change',fill='Padjadj') +
-#            theme(axis.title = element_text(size=12),
-#                  axis.text = element_text(size=12))+
-#            coord_flip()
-#    })
-
+output$table <- renderTable({
+  species <-input$species
+  geneformat <-input$geneformat
+  inputformat <-input$inputformat
+  padjcolname <-input$padjcolname
+  pcutoff <- input$pcutoff
+  fluximplied(inputdat,species,geneformat,inputformat,padjcolname,pcutoff)
+  significancetable
+}rownames = T)
+output$plot <-renderPlot({
+  species <-input$species
+  geneformat <-input$geneformat
+  inputformat <-input$inputformat
+  padjcolname <-input$padjcolname
+  pcutoff <- input$pcutoff
+  fluximplied(inputdat,species,geneformat,inputformat,padjcolname,pcutoff)
+  fluximpliedplot
+})
+output$print <-renderText({
+  species <-input$species
+  geneformat <-input$geneformat
+  inputformat <-input$inputformat
+  padjcolname <-input$padjcolname
+  pcutoff <- input$pcutoff
+  fluximplied(inputdat,species,geneformat,inputformat,padjcolname,pcutoff)
+})
+ 
 }}
-# Run the application 
 
 shinyApp(ui = ui, server = server)
 
