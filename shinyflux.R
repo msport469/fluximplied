@@ -16,7 +16,7 @@ fields <- c('inputdat',
             "inputformat",
             'padjcolname',
             'pcutoff')
-#exampledeseqresultdataframe<-read.csv('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/exampledeseqresultdataframe.csv',row.names = c(1))
+exampledeseqresultdataframe<-read.csv('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/exampledeseqresultdataframe.csv',row.names = c(1))
 inputdat=exampledeseqresultdataframe
 source("./fluximplied.R")
 saveData <- function(data) {
@@ -57,10 +57,8 @@ ui <- fluidPage(
             selectInput('inputformat','Input format',
                                      c('Dataframe','Vector')),
             selectInput("padjcolname", "Column with adjusted p values",c(colnames(inputdat))),
-            sliderInput("pcutoff", "Padjadj cutoff",
-                                 min = 0, max = 0.2,
-                                 value = .05),
-            actionButton("submit", "Submit")
+            numericInput("pcutoff", "Significance cutoff (alpha)", 0.05, min = 0, max = 1),
+            downloadButton("downloadData", "Download")
         ),
 
         # Show a plot of the generated distribution
@@ -81,7 +79,7 @@ output$table <- renderTable({
   pcutoff <- input$pcutoff
   fluximplied(inputdat,species,geneformat,inputformat,padjcolname,pcutoff)
   significancetable
-}rownames = T)
+  },rownames = T)
 output$plot <-renderPlot({
   species <-input$species
   geneformat <-input$geneformat
@@ -99,6 +97,13 @@ output$print <-renderText({
   pcutoff <- input$pcutoff
   fluximplied(inputdat,species,geneformat,inputformat,padjcolname,pcutoff)
 })
+output$downloadData <- downloadHandler(
+    filename = function() {
+        paste(output$table, ".csv", sep = "")
+    },
+    content = function(file) {
+        write.csv(output$table, filename, row.names = T)
+    })
  
 }}
 
