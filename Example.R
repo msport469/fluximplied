@@ -1,8 +1,9 @@
-#source('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/fluximplied.R')
-inputformat='df'
+source('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/fluximplied.R')
+inputformat='vector'
 species='Mmu'
 geneformat='Symbol'
 padjcolname='weighted_pvalue'
+inputdat=c('Tnfa','Cpt1a')
 exampledeseqresultdataframe<-read.csv('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/exampledeseqresultdataframe.csv',row.names = c(1))
 inputdat=exampledeseqresultdataframe
 
