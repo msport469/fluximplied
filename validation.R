@@ -1,4 +1,4 @@
-dp49a<-read.csv('deseq2result.dpvscd49a.csv') #,row.names = c(1)
+dp49a<-read.csv('deseq2result.dpvscd49a.csv') 
 head(dp49a)
 dim(dp49a)
 updp49a<-subset(dp49a,dp49a$log2FoldChange>0)
@@ -111,9 +111,3 @@ flux12<-fluximplied(input12,
                     geneformat,
                     inputformat,
                     padjcolname)
-
-
-
-
-
-

@@ -38,7 +38,7 @@ ui <- fluidPage(theme = shinytheme("slate"),
           plotOutput(outputId = 'plot'),
           h4("We built this plot using the table above, which you can download with the button to the left. You can also copy and paste this chart."),
           h2("Text output"),
-          textOutput(outputId = "print")
+          h4(textOutput(outputId = "print"))
         )
     )
 )
@@ -113,4 +113,4 @@ output$downloadData  <- downloadHandler(
 #run shiny app
 shinyApp(ui = ui, server = server)
 
-
+###FIN###

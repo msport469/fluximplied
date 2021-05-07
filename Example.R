@@ -34,20 +34,3 @@ fluximplied(inputdat,
 #exampledf<-as.data.frame(example)
 #write.csv(exampledf,'exampledeseqresultdataframe.csv')
 #------------------------------------------------------
-
-#UNCOMMENT EVERYTHING BELOW THIS TO TEST THE FUNCTION
-#input=c('Tnfa','Cpt1a')
-#input=exampledf
-#inputformat='vector'
-#species='Mmu'
-#geneformat='Symbol'
-#padjcolname='weighted_pvalue'
-#fluximplied(input,
-#            species,
-#            geneformat,
-#            inputformat,
-#            padjcolname)
-#input=c('Tnfa','Cpt1a')
-#input=exampledeseqresultdataframe
-#inputup<-subset(exampledeseqresultdataframe,exampledeseqresultdataframe$log2FoldChange > 0)
-#inputdown<-subset(exampledeseqresultdataframe,exampledeseqresultdataframe$log2FoldChange < 0)
