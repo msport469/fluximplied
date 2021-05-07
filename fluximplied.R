@@ -1,3 +1,4 @@
+
 #create a function that makes sure the user formatted their data according to species and format correctly. 
 #If you tell the function you are giving us symbols when you are not, or otherwise lie to the function, it will give spurious results.
 specform <- function(species,geneformat) {
@@ -15,6 +16,11 @@ specform <- function(species,geneformat) {
 }
 
 fluximplied <- function(inputdat,species='Mmu',geneformat='Symbol',inputformat='df',padjcolname='adj_pvalue',pcutoff=0.05) {
+  list.of.packages <- c("viridis", "ggplot2",'shinythemes','Cairo','shiny')
+  new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+  if(length(new.packages)) install.packages(new.packages)
+  lapply(list.of.packages, require, character.only = TRUE)
+  
   # function to see if there are any rate limiting steps in gene list
   #load the rate limiting step database
   RLSdatabase<-read.csv('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/RLSdatabase.csv',stringsAsFactors = F)
@@ -65,4 +71,19 @@ fluximplied <- function(inputdat,species='Mmu',geneformat='Symbol',inputformat='
            coord_flip()
          plot(fluximpliedplot)},1+1)
  # return((print1))
+}
+#The below functions are taken from shing tutorials
+saveData <- function(data) {
+  data <- as.data.frame(t(data))
+  if (exists("responses")) {
+    responses <<- rbind(responses, data)
+  } else {
+    responses <<- data
+  }
+}
+
+loadData <- function() {
+  if (exists("responses")) {
+    responses
+  }
 }

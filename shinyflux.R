@@ -1,38 +1,10 @@
-#
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
+list.of.packages <- c("viridis", "ggplot2",'shinythemes','Cairo','shiny')
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
+lapply(list.of.packages, require, character.only = TRUE)
 
-library(shiny)
-library(Cairo)
-library(shinythemes)
-#fields <- c('inputdat',
-#            "species",
-#            "geneformat",
-#            "inputformat",
-#            'padjcolname',
-#            'pcutoff')
-#exampledeseqresultdataframe<-read.csv('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/exampledeseqresultdataframe.csv',row.names = c(1))
-#inputdat=exampledeseqresultdataframe
 source("https://raw.githubusercontent.com/sportiellomike/fluximplied/master/fluximplied.R")
-saveData <- function(data) {
-  data <- as.data.frame(t(data))
-  if (exists("responses")) {
-    responses <<- rbind(responses, data)
-  } else {
-    responses <<- data
-  }
-}
 
-loadData <- function() {
-  if (exists("responses")) {
-    responses
-  }
-}
 if (interactive()) {
 # Define UI for application that draws a histogram
 ui <- fluidPage(theme = shinytheme("slate"),
@@ -44,9 +16,6 @@ ui <- fluidPage(theme = shinytheme("slate"),
     sidebarLayout(
         sidebarPanel(
             fileInput("file1", "Choose CSV File", accept = ".csv"),
-            #checkboxInput("header", "Header", TRUE),
-         # selectInput("inputdat", "inputdat", 
-          #            c('inputdat'='inputdat')),  
           selectInput("species", "species", 
                                  c('Mouse'='Mmu',
                                    'Human'='Hsa')),
@@ -56,50 +25,33 @@ ui <- fluidPage(theme = shinytheme("slate"),
                                      c('Dataframe','Vector')),
             selectInput("padjcolname", "Column with adjusted p values",''),
             numericInput("pcutoff", "Significance cutoff (alpha)", 0.05, min = 0, max = 1),
-            downloadButton("downloadData", "Download output table")
+            downloadButton("downloadData", "Download output table"),
+          h3('This interactive supports dataframe inputs to fluximplied only. Once you upload your CSV, it should automatically run!')
         ),
 
         # Show a plot of the generated distribution
         mainPanel(
+          h2("Output table"),
           tableOutput(outputId = 'table'),
+          h2("Plot"),
           plotOutput(outputId = 'plot'),
-          textOutput(outputId = "print"),
+          h4("We built this ploy using the table above, which you can download with the button to the left. You can also copy and paste this chart."),
+          h2("Text output"),
+          textOutput(outputId = "print")
         )
     )
 )
 server = function(input, output, session) {
-#  outVar = reactive({
-#    file <- input$file1
-#    ext <- tools::file_ext(file$datapath)
-#    req(file)
-#    validate(need(ext == "csv", "Please upload a csv file"))
-#    inputdat<-read.csv(file$datapath, row.names=c(1))
-#    mydata = get(inputdat)
-#    names(mydata)
-#  })
-#  observe({
-#    updateSelectInput(session, "padjcolname",
-#                      choices = outVar()
-#    )})
+
   data <- reactive({ 
     req(input$file1) ## ?req #  require that the input is available
     
     inFile <- input$file1 
     df <- read.csv(inFile$datapath, header = T,row.names = c(1))
-    updateSelectInput(session, inputId = 'padjcolname', label = 'padjcol',choices = colnames(df))
+    updateSelectInput(session, inputId = 'padjcolname', label = 'Column to use for P value adjustment',choices = colnames(df))
     return(df)
   })
-  #inputdat <- reactive({
-  #  req(input$file)
-  #  
-  #  ext <- tools::file_ext(input$file$name)
-  #  switch(ext,
-  #         csv = vroom::vroom(input$file$datapath, delim = ","),
-  #         tsv = vroom::vroom(input$file$datapath, delim = "\t"),
-  #         validate("Invalid file; Please upload a .csv or .tsv file")
-  #  )
-   # read.csv(input$file$datapath, row.names=c(1))
- # })
+ 
 output$table <- renderTable({
   inputdat<-data()
   species <-input$species
