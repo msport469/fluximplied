@@ -1,5 +1,5 @@
 source('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/fluximplied.R')
-inputformat='vector'
+inputformat='df'
 species='Mmu'
 geneformat='Symbol'
 padjcolname='weighted_pvalue'
