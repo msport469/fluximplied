@@ -1,16 +1,17 @@
+#install and load necessary packages
 list.of.packages <- c("viridis", "ggplot2",'shinythemes','Cairo','shiny')
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages)
 lapply(list.of.packages, require, character.only = TRUE)
-
+#load fluximplied from github
 source("https://raw.githubusercontent.com/sportiellomike/fluximplied/master/fluximplied.R")
 
+#build shiny app
 if (interactive()) {
 # Define UI for application that draws a histogram
 ui <- fluidPage(theme = shinytheme("slate"),
     # Application title
     titlePanel("fluximplied"),
-    
     
     # Sidebar with a slider input for number of bins 
     sidebarLayout(
@@ -29,20 +30,20 @@ ui <- fluidPage(theme = shinytheme("slate"),
           h3('This interactive supports dataframe inputs to fluximplied only. Once you upload your CSV, it should automatically run!')
         ),
 
-        # Show a plot of the generated distribution
+#create the main panel plotting and printing outputs
         mainPanel(
           h2("Output table"),
           tableOutput(outputId = 'table'),
           h2("Plot"),
           plotOutput(outputId = 'plot'),
-          h4("We built this ploy using the table above, which you can download with the button to the left. You can also copy and paste this chart."),
+          h4("We built this plot using the table above, which you can download with the button to the left. You can also copy and paste this chart."),
           h2("Text output"),
           textOutput(outputId = "print")
         )
     )
 )
 server = function(input, output, session) {
-
+#create reactive to be able to pull column names from uploaded CSV
   data <- reactive({ 
     req(input$file1) ## ?req #  require that the input is available
     
@@ -51,7 +52,7 @@ server = function(input, output, session) {
     updateSelectInput(session, inputId = 'padjcolname', label = 'Column to use for P value adjustment',choices = colnames(df))
     return(df)
   })
- 
+#create each output
 output$table <- renderTable({
   inputdat<-data()
   species <-input$species
@@ -109,7 +110,7 @@ output$downloadData  <- downloadHandler(
 )
  
 }}
-
+#run shiny app
 shinyApp(ui = ui, server = server)
 
 

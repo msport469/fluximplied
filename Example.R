@@ -1,17 +1,24 @@
+#load fluximplied from github
 source('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/fluximplied.R')
+#load example inputdata in the format of dataframe
+exampledeseqresultdataframe<-read.csv('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/exampledeseqresultdataframe.csv',row.names = c(1))
+inputdat=exampledeseqresultdataframe
+#below is an example input dat that is a vecotor
+#inputdat=c('Tnfa','Cpt1a')
+#load other parameters
 inputformat='df'
 species='Mmu'
 geneformat='Symbol'
 padjcolname='weighted_pvalue'
-inputdat=c('Tnfa','Cpt1a')
-exampledeseqresultdataframe<-read.csv('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/exampledeseqresultdataframe.csv',row.names = c(1))
-inputdat=exampledeseqresultdataframe
+pcutoff=0.05
 
+#now actually run fluximplied
 fluximplied(inputdat,
             species,
             geneformat,
             inputformat,
-            padjcolname)
+            padjcolname,
+            pcutoff)
 
 
 
