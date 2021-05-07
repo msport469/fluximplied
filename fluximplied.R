@@ -44,8 +44,8 @@ fluximplied <- function(inputdat,species='Mmu',geneformat='Symbol',inputformat='
   intersect<-intersect(inputdat,RLSgenes)
   lengthintersect<-length(intersect)
   ifelse(lengthintersect==0,
-               print1<<-(paste('There are no genes in your set that are in our rate limiting step database. Make sure you gave the correct species (Mmu or Hsa only) and geneformat (Symbol or ENTREZID only). Your genes should be in a character vector. Sorry about that. We are as sad as you.')),
-               {print1<-(paste0('Your gene set has --------> ',lengthintersect,' <-------- genes that have been identified as encoding enzymes involved as rate-limiting steps in the gene set you provided. If you are running this from Rstudio or the command line (not the interactive app), your RLS genes are saved as myRLSgenes and a dataframe of genes and corresponding pathways is saved as myRLStable.'))})
+         (paste('There are no genes in your set that are in our rate limiting step database. Make sure you gave the correct species (Mmu or Hsa only) and geneformat (Symbol or ENTREZID only). If you are using the interactive GUI, you should be uploading a dataframe with a column of p values, a column called log2FoldChange, and genes should be in the first column. If you are not using the GUI, you can use the dataframe from a DESeq2 result with genes as rownames, or a character vector of genes. Sorry about that. We are as sad as you.')),
+               {(paste0('Your gene set has --------> ',lengthintersect,' <-------- genes that have been identified as encoding enzymes involved as rate-limiting steps in the gene set you provided. If you are running this from Rstudio or the command line (not the interactive app), your RLS genes are saved as myRLSgenes and a dataframe of genes and corresponding pathways is saved as myRLStable.'))})
   #save the outputs so the user can hold onto them and look at them
   myRLStable<<-subset
   myRLSgenes<<-intersect(RLS$RLSgenes,inputdat)
@@ -64,5 +64,5 @@ fluximplied <- function(inputdat,species='Mmu',geneformat='Symbol',inputformat='
                  axis.text = element_text(size=12))+
            coord_flip()
          plot(fluximpliedplot)},1+1)
-  print(print1)
+  #return((print(print1)))
 }
