@@ -1,7 +1,8 @@
 # fluximplied
 These R functions assist in the generation of hypotheses for flux analysis from transciptomic or metabalomic data. Install instructions and how to use these functions are below.
 # Authors, contributors, and more
-* Mike Sportiello, Rohith Palli PhD, Adam Geber, Nate Laniewski, and Dave Topham PhD
+* Mike Sportiello, Rohith Palli PhD, Adam Geber, Nate Laniewski, Aizan Embong, and Dave Topham PhD
+* This tool was created by students and employees at the University of Rochester Medical Center. We acknowledge and are grateful for the public institutions that support this work as it would have been impossible without them, including the National Institute of Health, our public education system, and more.
 * You can contact us at Michael_Sportiello@urmc.rochester.edu.
 * We would appreciate you citing us. An acceptable citation follows: Sportiello M et alia, fluximplied: a hypothesis generating tool for flux analysis using a rate limiting step database. 2021. https://github.com/sportiellomike/fluximplied.
 
