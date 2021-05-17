@@ -3,6 +3,7 @@ These R functions assist in the generation of hypotheses for flux analysis from 
 # Authors, contributors, and more
 * Mike Sportiello, Rohith Palli PhD, Adam Geber, and Dave Topham PhD
 * You can contact us at Michael_Sportiello@urmc.rochester.edu.
+* We would appreciate you citing us. An acceptable citation follows: Sportiello M et alia, fluximplied: a hypothesis generating tool for flux analysis using a rate limiting step database. 2021. https://github.com/sportiellomike/fluximplied.
 
 We would love if others helped contribute to the public database of rate limiting steps (see more below). If you're willing to help, we would love to credit your contribution here as well as with a certificate that officially declares you a super cool, super nice person. The database, in its current form, is limited to some of the more commonly discussed pathways like glycolysis or the citric acid cycle (TCA cycle). We would love to expand it. 
 # The problem
@@ -32,7 +33,7 @@ The function is formatted as follows:
 * inputformat may be either df (dataframe) or vector. It defaults to assuming you supplied a dataframe unless you specify. Your dataframe should be formatted as described above for inputdat.
 * The padjcolname should be the column specified by the user as the padjust column from differential expression. It may default to 'adj_pvalue' unless the user supplies another name. This is this the name that DESeq2 uses when the user saves the DESeq2 result as a csv.
 * pcutoff may be any number between 0 and 1. It defaults to 0.05. This is the alpha the user sets. To be clear, because fluximplied adjusts the padjust, this is the alpha for the padjustadjust.
+
+The function will save the table as well as the plot to be plotted later as the user wishes. It will also save the subsetted table from the database for which there is overlap.
 # Some notes
 This software is not currently compatabile with other formats beyond Gene Symbols or ENTREZIDs (we recommend using the MapIds function from Org.Mm.eg.db / Org.Hs.eg.db and AnnotationDbi to convert it to one of these formats in R, though other options exist).
-# Citation
-We would appreciate you citing us. An acceptable citation follows: Sportiello M et alia, fluximplied: a hypothesis generating tool for flux analysis using a rate limiting step database. 2021. https://github.com/sportiellomike/fluximplied.
