@@ -38,12 +38,3 @@ The function is formatted as follows:
 The function will save the table as well as the plot to be plotted later as the user wishes. It will also save the subsetted table from the database for which there is overlap.
 # Some notes
 This software is not currently compatabile with other formats beyond Gene Symbols or ENTREZIDs (we recommend using the MapIds function from Org.Mm.eg.db / Org.Hs.eg.db and AnnotationDbi to convert it to one of these formats in R, though other options exist).
-
-  __ _            _                 _ _          _ 
- / _| |          (_)               | (_)        | |
-| |_| |_   ___  ___ _ __ ___  _ __ | |_  ___  __| |
-|  _| | | | \ \/ / | '_ ` _ \| '_ \| | |/ _ \/ _` |
-| | | | |_| |>  <| | | | | | | |_) | | |  __/ (_| |
-|_| |_|\__,_/_/\_\_|_| |_| |_| .__/|_|_|\___|\__,_|
-                             | |                   
-                             |_|                   
