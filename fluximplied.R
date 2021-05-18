@@ -74,7 +74,7 @@ fluximplied <- function(inputdat,species='Mmu',geneformat='Symbol',inputformat='
          plot(fluximpliedplot)},1+1)
   return((print1))
 }
-#The below functions are taken from shing tutorials
+#The below functions are taken from shiny tutorials
 saveData <- function(data) {
   data <- as.data.frame(t(data))
   if (exists("responses")) {
@@ -89,3 +89,4 @@ loadData <- function() {
     responses
   }
 }
+###FIN###
