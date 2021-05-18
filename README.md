@@ -1,7 +1,7 @@
 # fluximplied
 These R functions assist in the generation of hypotheses for flux analysis from transciptomic or metabalomic data. Install instructions and how to use these functions are below.
 # Authors, contributors, and more
-* Mike Sportiello, Rohith Palli PhD, Adam Geber, Nate Laniewski, Aizan Embong, and Dave Topham PhD
+* Mike Sportiello, Rohith Palli PhD, Adam Geber, Nate Laniewski, Aizan Embong, Emma C Reilly PhD, Kris Lambert Emo, and Dave Topham PhD
 * This tool was created by students and employees at the University of Rochester Medical Center. We acknowledge and are grateful for the public institutions that support this work as it would have been impossible without them, including the National Institute of Health, our public education system, and more.
 * You can contact us at Michael_Sportiello@urmc.rochester.edu.
 * We would appreciate you citing us. An acceptable citation follows: Sportiello M et alia, fluximplied: a hypothesis generating tool for flux analysis using a rate limiting step database. 2021. https://github.com/sportiellomike/fluximplied.
@@ -38,3 +38,12 @@ The function is formatted as follows:
 The function will save the table as well as the plot to be plotted later as the user wishes. It will also save the subsetted table from the database for which there is overlap.
 # Some notes
 This software is not currently compatabile with other formats beyond Gene Symbols or ENTREZIDs (we recommend using the MapIds function from Org.Mm.eg.db / Org.Hs.eg.db and AnnotationDbi to convert it to one of these formats in R, though other options exist).
+<!-- language: lang-none -->
+      __ _            _                 _ _          _ 
+     / _| |          (_)               | (_)        | |
+    | |_| |_   ___  ___ _ __ ___  _ __ | |_  ___  __| |
+    |  _| | | | \ \/ / | '_ ` _ \| '_ \| | |/ _ \/ _` |
+    | | | | |_| |>  <| | | | | | | |_) | | |  __/ (_| |
+    |_| |_|\__,_/_/\_\_|_| |_| |_| .__/|_|_|\___|\__,_|
+                                 | |                   
+                                 |_|                   
