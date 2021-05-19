@@ -1,12 +1,12 @@
-"","mouse.gene.symbol","mouse.entrez","human.gene.symbol","human.entrez","metabolic.reaction"
-"1","Pfkm","18642","PFKM","5213","Glycolysis"
-"2","Pfkl","18641","PFKL","5211","Glycolysis"
-"3","Fbp1","14121","FBP1","2203","Gluconeogenesis"
-"4","Idh2","269951","IDH2","3418","TCA cycle"
-"5","Gys1","14936","GYS1","2997","Glycogen synthesis"
-"6","Pygl","110095","PYGL","5836","Glycogenolysis"
-"7","Ppat","231327","PPAT","5471","De novo purine synthesis"
-"8","Cad","69719","CAD","790","De novo pyrimidine synthesis"
-"9","Cps1","227231","CPS1","1373","Urea cycle"
-"10","Acaca","107476","ACACA","31","Fatty acid synthesis"
-"11","Cpt1a","12894","CPT1A","1374","Beta oxidation of fatty acids"
+,mouse.gene.symbol,mouse.entrez,human.gene.symbol,human.entrez,metabolic.reaction,keggpathwayid
+1,Pfkm,18642,PFKM,5213,Glycolysis,00010
+2,Pfkl,18641,PFKL,5211,Glycolysis,00010
+3,Fbp1,14121,FBP1,2203,Gluconeogenesis,00010
+4,Idh2,269951,IDH2,3418,TCA cycle,00020
+5,Gys1,14936,GYS1,2997,Glycogen synthesis,00854
+6,Pygl,110095,PYGL,5836,Glycogenolysis,00855
+7,Ppat,231327,PPAT,5471,De novo purine synthesis,00230
+8,Cad,69719,CAD,790,De novo pyrimidine synthesis,00240
+9,Cps1,227231,CPS1,1373,Urea cycle,00029
+10,Acaca,107476,ACACA,31,Fatty acid synthesis,00061
+11,Cpt1a,12894,CPT1A,1374,Beta oxidation of fatty acids,00086
