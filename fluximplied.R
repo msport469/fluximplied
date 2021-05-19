@@ -23,7 +23,7 @@ fluximplied <- function(inputdat,species='Mmu',geneformat='Symbol',inputformat='
   
   # function to see if there are any rate limiting steps in gene list
   #load the rate limiting step database
-  RLSdatabase<-read.csv('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/RLSdatabase.csv',stringsAsFactors = F)
+  RLSdatabase<-read.csv('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/RLSdatabase.csv',stringsAsFactors = F,colClasses=c("kegg.pathway.id"="character"))
   #convert the database that matches your data for species and geneformat (Symbol or ENTREZID)
   RLSgenes<-specform(species,geneformat)
   #save the pathways
