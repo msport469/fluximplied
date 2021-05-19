@@ -1,4 +1,4 @@
-,mouse.gene.symbol,mouse.entrez,human.gene.symbol,human.entrez,metabolic.reaction,keggpathwayid
+,mouse.gene.symbol,mouse.entrez,human.gene.symbol,human.entrez,metabolic.reaction,kegg.pathway.id
 1,Pfkm,18642,PFKM,5213,Glycolysis,00010
 2,Pfkl,18641,PFKL,5211,Glycolysis,00010
 3,Fbp1,14121,FBP1,2203,Gluconeogenesis,00010
