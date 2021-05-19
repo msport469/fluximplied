@@ -1,3 +1,24 @@
+dat<-read.csv('exampledeseqresultdataframe.csv')
+names(dat)[1] <- "gene"
+sig<-subset(dat,dat$weighted_pvalue <.05)
+up<-subset(sig,sig$log2FoldChange > 0)
+up<-up$gene
+down<-subset(sig,sig$log2FoldChange < 0)
+down<-down$gene
+
+library(enrichR)
+db<-listEnrichrDbs()
+db<-c('KEGG_2019_Mouse','Reactome_2016')
+upresults<-enrichr(up,db)
+downresults<-enrichr(down,db)
+
+upkegg<-upresults$KEGG_2019_Mouse
+upreactome<-upresults$Reactome_2016
+downkegg<-downresults$KEGG_2019_Mouse
+downreactome<-downresults$Reactome_2016
+###FIN###
+
+
 dp49a<-read.csv('deseq2result.dpvscd49a.csv') 
 head(dp49a)
 dim(dp49a)
