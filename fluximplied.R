@@ -15,7 +15,7 @@ specform <- function(species,geneformat) {
   RLSgenes<<-RLSgenes
 }
 
-fluximplied <- function(inputdat,species='Mmu',geneformat='Symbol',inputformat='df',padjcolname='adj_pvalue',pcutoff=0.05) {
+fluximplied <- function(inputdat,species='Mmu',geneformat='Symbol',inputformat='df',padjcolname='adj_pvalue',pcutoff=0.05,downloadpathview=F) {
   list.of.packages <- c("viridis", "ggplot2",'shinythemes','Cairo','shiny')
   new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
   if(length(new.packages)) install.packages(new.packages)
@@ -75,6 +75,12 @@ fluximplied <- function(inputdat,species='Mmu',geneformat='Symbol',inputformat='
                  axis.text = element_text(size=12))+
            coord_flip()
          plot(fluximpliedplot)},1+1)
+  
+  ifelse(downloadpathview==T, lapply(significancetable$keggpathwayid, function(x) pathview(gene.data = inputdat['log2FoldChange'],
+                                                               pathway.id = x,
+                                                               species = species,
+                                                               gene.idtype = geneformat,
+                                                               kegg.native = T),1+1))
   return((print1))
 }
 #The below functions are taken from shiny tutorials

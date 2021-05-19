@@ -7,8 +7,8 @@ inputdat=exampledeseqresultdataframe
 #inputdat=c('Tnfa','Cpt1a')
 #load other parameters
 inputformat='df'
-species='Mmu'
-geneformat='Symbol'
+species='mmu'
+geneformat='SYMBOL'
 padjcolname='weighted_pvalue'
 pcutoff=0.05
 
