@@ -28,8 +28,10 @@ fluximplied <- function(inputdat,species='Mmu',geneformat='Symbol',inputformat='
   RLSgenes<-specform(species,geneformat)
   #save the pathways
   RLSpathways<-RLSdatabase$metabolic.reaction
+  #add kegg pathway ids
+  KEGGpathwayids<-RLSdatabase$kegg.pathway.id
   #make a dataframe with those genes and pathways
-  RLS<-data.frame(RLSgenes,RLSpathways)
+  RLS<-data.frame(RLSgenes,RLSpathways,KEGGpathwayids)
   #create the responses if there are any genes left after subsetting on your genes
   #that are also in our database for being rate limiting steps
    ifelse(inputformat=='vector'||inputformat=='Vector'||inputformat=='VECTOR',
@@ -45,7 +47,7 @@ fluximplied <- function(inputdat,species='Mmu',geneformat='Symbol',inputformat='
   #subset the database to only include genes in your set
   subset<-subset(RLS,RLS$RLSgenes %in% inputdat)
   #change the column names so the user knows what each column actually is
-  colnames(subset)<-c('RLS genes in your set','Pathway associated with gene')
+  colnames(subset)<-c('RLS genes in your set','Pathway associated with gene','KEGG Pathway ID')
   #create an intersect so we can actually count them
   intersect<-intersect(inputdat,RLSgenes)
   lengthintersect<-length(intersect)
@@ -59,6 +61,7 @@ fluximplied <- function(inputdat,species='Mmu',geneformat='Symbol',inputformat='
   ifelse(inputformat=='df'||inputformat=='DF'||inputformat=='Df'||inputformat=='dataframe'||inputformat=='Dataframe',
          {significancetable<-inputssubset
          significancetable$metabolicrxn <- myRLStable$`Pathway associated with gene`[match(rownames(significancetable), myRLStable$`RLS genes in your set`)]
+         significancetable$keggpathwayid <- myRLStable$`KEGG Pathway ID`[match(rownames(significancetable), myRLStable$`RLS genes in your set`)]
          significancetable<<-significancetable
          plottable<-significancetable
          plottable$genepath<-paste0(rownames(plottable),' (RLS of ',plottable$metabolicrxn,')')
