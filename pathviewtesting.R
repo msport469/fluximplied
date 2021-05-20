@@ -7,7 +7,7 @@ dat2<-dat[3]
 
 
 pathview(gene.data = dat[3], 
-         pathway.id = '00010',
+         pathway.id = '00600',
          species = 'mmu',
          gene.idtype = geneformat,
          kegg.native = F)
