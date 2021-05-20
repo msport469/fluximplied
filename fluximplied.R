@@ -76,11 +76,11 @@ fluximplied <- function(inputdat,species='Mmu',geneformat='Symbol',inputformat='
            coord_flip()
          plot(fluximpliedplot)},1+1)
   
-  ifelse(downloadpathview==T, lapply(significancetable$keggpathwayid, function(x) pathview(gene.data = inputdat['log2FoldChange'],
-                                                               pathway.id = x,
-                                                               species = species,
-                                                               gene.idtype = geneformat,
-                                                               kegg.native = T),1+1))
+ # ifelse(downloadpathview==T, lapply(significancetable$keggpathwayid, function(x) pathview(gene.data = inputdat['log2FoldChange'],
+  #                                                             pathway.id = x,
+   #                                                            species = species,
+    #                                                           gene.idtype = geneformat,
+     #                                                          kegg.native = T),1+1))
   return((print1))
 }
 #The below functions are taken from shiny tutorials
