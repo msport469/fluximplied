@@ -32,5 +32,5 @@ geneformat
 lapply(significancetable$keggpathwayid, function(x) pathview(gene.data = inputdat['log2FoldChange'],
                                                              pathway.id = x,
                                                              species = species,
-                                                             gene.idtype = geneformat,
-                                                             kegg.native = T))
+                                                             gene.idtype = gene.idtype.list[1],
+                                                             kegg.native = F))

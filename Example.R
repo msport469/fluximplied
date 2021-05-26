@@ -7,11 +7,10 @@ inputdat=exampledeseqresultdataframe
 #inputdat=c('Tnfa','Cpt1a')
 #load other parameters
 inputformat='df'
-species='mmu'
-geneformat='SYMBOL'
+species="mmu"
+geneformat="SYMBOL"
 padjcolname='weighted_pvalue'
 pcutoff=0.05
-
 #now actually run fluximplied
 fluximplied(inputdat,
             species,
@@ -19,6 +18,8 @@ fluximplied(inputdat,
             inputformat,
             padjcolname,
             pcutoff)
+
+#download pathways with pathview package.
 
 ###FIN###
 
