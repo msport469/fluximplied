@@ -28,10 +28,10 @@ The function is formatted as follows:
 `fluximplied(inputdat,species='Mmu',geneformat='Symbol',inputformat='df',padjcolname='adj_pvalue',pcutoff=0.05)`
 * inputdat may be either a dataframe or a vector of characters. 
   * If the user supplies a vector, there is no method to determine statistical significance of overlap with our rate limiting step database, but the function can still return a table of the overlapped genes. 
-  * If the use supplies a dataframe, the dataframe should include at minimum genes in the first column, a column that has p values from the differential analysis, and log2foldchange from the differential expression analysis.
+  * If the user supplies a dataframe, the dataframe should include at minimum genes in the first column, a column that has p values from the differential analysis, and log2foldchange from the differential expression analysis.
 * species may be either Mmu or Hsa (mouse or human). Alternative capitalizations of Mmu or Hsa may also be accepted.
 * inputformat may be either df (dataframe) or vector. It defaults to assuming you supplied a dataframe unless you specify. Your dataframe should be formatted as described above for inputdat.
-* The padjcolname should be the column specified by the user as the padjust column from differential expression. It may default to 'adj_pvalue' unless the user supplies another name. This is this the name that DESeq2 uses when the user saves the DESeq2 result as a csv.
+* The padjcolname should be the column specified by the user as the padjust column from differential expression. It may default to 'adj_pvalue' unless the user supplies another name. This is the name that DESeq2 uses when the user saves the DESeq2 result as a csv.
 * pcutoff may be any number between 0 and 1. It defaults to 0.05. This is the alpha the user sets. To be clear, because fluximplied adjusts the padjust, this is the alpha for the padjustadjust.
 
 The function will save the table as well as the plot to be plotted later as the user wishes. It will also save the subsetted table from the database for which there is overlap.
