@@ -6,7 +6,6 @@ These R functions assist in the generation of hypotheses for flux analysis from 
 * You can contact us at Michael_Sportiello@urmc.rochester.edu.
 * We would appreciate you citing us. An acceptable citation follows: Sportiello M et alia, fluximplied: a hypothesis generating tool for flux analysis using a rate limiting step database. 2021. https://github.com/sportiellomike/fluximplied.
 
-We would love if others helped contribute to the public database of rate limiting steps (see more below). If you're willing to help, we would love to credit your contribution here as well as with a certificate that officially declares you a super cool, super nice person. The database, in its current form, is limited to some of the more commonly discussed pathways like glycolysis or the citric acid cycle (TCA cycle). We would love to expand it. 
 # The problem
 Differential expression analysis is increasingly commonplace. For us T cell immunologists, we might look at the number of genes that are upregulated in activated T cells compared to non-activated T cells and find that many of those in our list of upregulated genes have to do with killing target cells (an essential role of T cells). We might see that, after performing a statistical test using methods such as [enrichr](https://maayanlab.cloud/Enrichr/) that genes that have to do with cell killing are enriched in our upregulated gene set. 
 
