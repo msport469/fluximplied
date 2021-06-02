@@ -20,6 +20,7 @@ You can use an interactive graphic user interface (GUI) which allows you to uplo
 Or, for those with more experience using R, simply install the package (ensure you have an internet connection):
 
 `library(devtools)`
+
 `install_github('sportiellomike/fluximpliedpackage')`
 
 If that doesn't work, try
