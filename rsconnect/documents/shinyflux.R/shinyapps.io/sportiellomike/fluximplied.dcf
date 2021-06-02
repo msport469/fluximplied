@@ -1,0 +1,14 @@
+name: fluximplied
+title: fluximplied
+username:
+account: sportiellomike
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4219663
+bundleId: 4670017
+url: https://sportiellomike.shinyapps.io/fluximplied/
+when: 1622661445.25539
+lastSyncTime: 1622661445.25539
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .gitattributes|compare.R|Example.R|exampledeseqresultdataframe-lfccutoff.csv|exampledeseqresultdataframe.csv|fluximplied.R|mmu00010.pathview.pdf|mmu00010.pathview.png|mmu00010.png|mmu00010.xml|mmu00020.pathview.pdf|mmu00020.pathview.png|mmu00020.png|mmu00020.xml|mmu00061.pathview.pdf|mmu00061.pathview.png|mmu00061.png|mmu00061.xml|mmu00600.pathview.pdf|mmu00600.xml|pathviewtesting.R|README.md|RLSdatabase.csv|RLSdatabaseupdater.R|shiny.R|validation.R|can delete|compare|figures

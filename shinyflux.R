@@ -1,8 +1,8 @@
 #install and load necessary packages
-list.of.packages <- c("viridis", "ggplot2",'shinythemes','Cairo','shiny','pathview')
-new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
-if(length(new.packages)) install.packages(new.packages)
-lapply(list.of.packages, require, character.only = TRUE)
+#list.of.packages <- c("viridis", "ggplot2",'shinythemes','Cairo','shiny','pathview')
+#new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+#if(length(new.packages)) install.packages(new.packages)
+#lapply(list.of.packages, require, character.only = TRUE)
 #load fluximplied from github
 source("https://raw.githubusercontent.com/sportiellomike/fluximplied/master/fluximplied.R")
 
@@ -23,7 +23,7 @@ ui <- fluidPage(theme = shinytheme("slate"),
             selectInput('geneformat','Gene format',
                                     c('Symbol','ENTREZID')),
             selectInput('inputformat','Input format',
-                                     c('Dataframe','Vector')),
+                                     c('Dataframe')),
             selectInput("padjcolname", "Column with adjusted p values",''),
             numericInput("pcutoff", "Significance cutoff (alpha)", 0.05, min = 0, max = 1),
             downloadButton("downloadData", "Download output table"),
@@ -44,6 +44,7 @@ ui <- fluidPage(theme = shinytheme("slate"),
 )
 server = function(input, output, session) {
 #create reactive to be able to pull column names from uploaded CSV
+
   data <- reactive({ 
     req(input$file1) ## ?req #  require that the input is available
     
