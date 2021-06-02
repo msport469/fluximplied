@@ -18,8 +18,8 @@ Here, we present the function fluximplied (as well as the functions it depends o
 You can use an interactive graphic user interface (GUI) which allows you to upload your CSV (which you can make by exporting from excel), and returns a table of rate limiting steps, a bar graph of your results, and text explaining the meaning of your results. You can access that GUI here:
 
 Or, for those with more experience using R, simply install the package (ensure you have an internet connection):
-`library(devtools)
-install_github('sportiellomike/fluximpliedpackage')`
+`library(devtools)`
+`install_github('sportiellomike/fluximpliedpackage')`
 
 If that doesn't work, try
 
