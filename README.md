@@ -21,7 +21,7 @@ Or, for those with more experience using R, simply install the package (ensure y
 
 `library(devtools)`
 
-`install_github('sportiellomike/fluximpliedpackage')`
+`install_github('sportiellomike/fluximplied')`
 
 If that doesn't work, try
 
