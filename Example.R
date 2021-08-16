@@ -1,15 +1,19 @@
 #load fluximplied from github
-source('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/fluximplied.R')
-#load example inputdata in the format of dataframe
-exampledeseqresultdataframe<-read.csv('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/exampledeseqresultdataframe.csv',row.names = c(1))
-inputdat=exampledeseqresultdataframe
+# source('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/fluximplied.R')
+# #load example inputdata in the format of dataframe
+#exampledeseqresultdataframe<-read.csv('https://raw.githubusercontent.com/sportiellomike/fluximplieddev/master/exampledeseqresultdataframe.csv',row.names = c(1))
+library(devtools)
+install_github('sportiellomike/fluximplied')
+library(fluximplied)
+head(exampleData)
+inputdat<-exampleData
 #below is an example input dat that is a character vector
 #inputdat=c('Tnfa','Cpt1a')
 #load other parameters
 inputformat='df'
 species="mmu"
 geneformat="SYMBOL"
-padjcolname='weighted_pvalue'
+padjcolname='padj'
 pcutoff=0.05
 #now actually run fluximplied
 fluximplied(inputdat,
@@ -18,8 +22,6 @@ fluximplied(inputdat,
             inputformat,
             padjcolname,
             pcutoff)
-
-#download pathways with pathview package.
 
 ###FIN###
 
