@@ -3,7 +3,7 @@
 library(org.Mm.eg.db)
 library(org.Hs.eg.db)
 #load our already published database
-RLSdatabase<-read.csv('https://raw.githubusercontent.com/sportiellomike/fluximplieddev/master/RLSdatabase.csv?token=ANC4YV7WZDYTMHNDGWEHUODARNWWK',
+RLSdatabase<-read.csv('https://raw.githubusercontent.com/sportiellomike/fluximplieddev/master/RLSdatabase.csv',
                       stringsAsFactors = F)
 #look at the top
 head(RLSdatabase)
