@@ -1,7 +1,6 @@
 #load fluximplied from github
-# source('https://raw.githubusercontent.com/sportiellomike/fluximplied/master/fluximplied.R')
-# #load example inputdata in the format of dataframe
-#exampledeseqresultdataframe<-read.csv('https://raw.githubusercontent.com/sportiellomike/fluximplieddev/master/exampledeseqresultdataframe.csv',row.names = c(1))
+#you may have to install devtools with the below code
+install.packages("devtools")
 library(devtools)
 install_github('sportiellomike/fluximplied')
 library(fluximplied)
