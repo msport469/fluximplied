@@ -7,7 +7,6 @@ library(fluximplied)
 head(exampleData)
 inputdat<-exampleData
 #below is an example input dat that is a character vector
-#inputdat=c('Tnfa','Cpt1a')
 #load other parameters
 inputformat='df'
 species="mmu"
@@ -15,6 +14,14 @@ geneformat="SYMBOL"
 padjcolname='padj'
 pcutoff=0.05
 #now actually run fluximplied
+fluximplied(inputdat,
+            species,
+            geneformat,
+            inputformat,
+            padjcolname,
+            pcutoff)
+inputdat<-c('Cpt1a','Ifng')
+inputformat<-'vector'
 fluximplied(inputdat,
             species,
             geneformat,
