@@ -1,3 +1,7 @@
+library(ggplot2)
+library(viridis)
+library(enrichR)
+library(gridExtra)
 #Enrichr
 listEnrichrDbs()
 alldbs <- listEnrichrDbs()
