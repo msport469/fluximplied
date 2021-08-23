@@ -8,6 +8,23 @@ library(tidyr)
 #Enrichr
 #set up dbs
 dbs <- c("KEGG_2019_Human",'Reactome_2016')
+#read in humans
+AdiposevLiver<-readRDS('humandata/AdiposevLiver.RDS')
+AdiposevPutamen<-readRDS('humandata/AdiposevPutamen.RDS')
+LivervPutamen<-readRDS('humandata/LivervPutamen.RDS')
+#p value subset
+inputdatgseaAvL <- AdiposevLiver[AdiposevLiver[,"weighted_pvalue"]<0.05,]
+inputdatgseaAvP <- AdiposevPutamen[AdiposevPutamen[,"weighted_pvalue"]<0.05,]
+inputdatgseaLvP <- LivervPutamen[LivervPutamen[,"weighted_pvalue"]<0.05,]
+#LFC cutoff
+inputdatgseaAvLup <- inputdatgseaAvL[inputdatgseaAvL[,"log2FoldChange"]>0.5,]
+inputdatgseaAvLdown <- inputdatgseaAvL[inputdatgseaAvL[,"log2FoldChange"]<(-0.5),]
+
+inputdatgseaAvPup <- inputdatgseaAvP[inputdatgseaAvP[,"log2FoldChange"]>0.5,]
+inputdatgseaAvPdown <- inputdatgseaAvP[inputdatgseaAvP[,"log2FoldChange"]<(-0.5),]
+
+inputdatgseaLvPup <- inputdatgseaLvP[inputdatgseaLvP[,"log2FoldChange"]>0.5,]
+inputdatgseaLvPdown <- inputdatgseaLvP[inputdatgseaLvP[,"log2FoldChange"]<(-0.5),]
 
 ####MOUSEYMOUSEYMOUSEY YEAH####
 inputdatgseamouse<-readRDS('mousedata/DPDNdfmouse.RDS')
@@ -52,7 +69,7 @@ edown <- enrichr(list_down, dbs)
 #   coord_flip()
 
 
-#Reactome 2016 human
+#Reactome 2016 mouse
 up <- eup$Reactome_2016
 down <- edown$Reactome_2016
 up$type <- "up"
@@ -96,6 +113,7 @@ reactomebarplot
 #we need to add lines of code to read in files. 
 #adam, can you please put .RDS files in subfolder of fluximplied dev called
 #human data
+readRDS('humandata/AdiposevLiver.RDS')
 
 list_up <- c(upgenes)
 list_down <- c(downgenes)
