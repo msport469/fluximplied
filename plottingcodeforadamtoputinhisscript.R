@@ -92,7 +92,7 @@ list_down <- c(downgenes)
 eup <- enrichr(list_up, dbs)
 edown <- enrichr(list_down, dbs)
 
-#KEGG Mouse
+#KEGG Hoooman
 up <- eup$KEGG_2019_Human
 down <- edown$KEGG_2019_Human
 up$type <- "up"
@@ -132,7 +132,7 @@ temp1$Num <- as.numeric(temp$Num)
 temp1$Denom <- as.numeric(temp$Denom)
 temp1$Overlap <- temp1$Num / temp1$Denom
 
-#Reactome 2016
+#Reactome 2016 human
 up <- eup$Reactome_2016
 down <- edown$Reactome_2016
 up$type <- "up"
