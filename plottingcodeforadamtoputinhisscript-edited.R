@@ -29,7 +29,7 @@ eup <- enrichr(list_up, dbs)
 edown <- enrichr(list_down, dbs)
 
 #KEGG Mouse
-#####there are no up or down pathways in KEGG mouse cutoff lfc=0.5 or -0.5
+#####there are no up or down pathways in KEGG mouse cutoff lfc=0.5 or -0.5####
 # up <- eup$KEGG_2019_Mouse
 # down <- edown$KEGG_2019_Mouse
 # up$type <- "up"
@@ -62,8 +62,8 @@ up <- up[order(up$Combined.Score), ]  # sort
 down <- down[down$Adjusted.P.value<0.05,]
 down <- down[order(down$Combined.Score), ]  # sort
 down$Combined.Score <- (-1) * down$Combined.Score
-up<-up[1:5,]
-down<-down[1:5,]
+#up<-up[1:5,]
+#down<-down[1:5,]
 gos <- rbind(down,up)
 gos <- na.omit(gos) # Diverging Barcharts
 reactomebarplot<-ggplot(gos, aes(x=reorder(Term,Combined.Score), y=Combined.Score , label=Combined.Score)) + 
