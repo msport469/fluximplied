@@ -51,8 +51,6 @@ edown <- enrichr(list_down, dbs)
 #   labs(fill = bquote('P'['adj']))+
 #   coord_flip()
 
-
-
 #Reactome 2016 Mouse
 up <- eup$Reactome_2016
 down <- edown$Reactome_2016
@@ -84,7 +82,9 @@ reactomebarplot
 
 
 
-
+#we need to add lines of code to read in files. 
+#adam, can you please put .RDS files in subfolder of fluximplied dev called
+#human data
 
 list_up <- c(upgenes)
 list_down <- c(downgenes)
@@ -165,6 +165,15 @@ ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap)) +
   labs(fill = bquote('-log P'['adj']))+
   coord_flip()
 reactomebarplot
+
+
+
+
+
+
+
+
+
 
 
 write.csv(eup$KEGG_2019_Human,'./compare/upKEGG_2019_Human-LFC_0.5_.csv')
