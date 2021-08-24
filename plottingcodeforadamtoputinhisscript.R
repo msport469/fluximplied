@@ -410,7 +410,8 @@ r<-mousefluxplot+ggtitle('TRM vs circulating T cells')
 grid.arrange(q,w,e,r,ncol=1)
 
 ######
-grid.arrange(arrangeGrob(a,z),q,nrow=2,he)
+grid.arrange(a,z,q,ncol=1)
+grid.arrange(arrangeGrob(a,z),q,nrow=3)
 #AvLplots<-grid.arrange(arrangeGrob(a,z,q,nrow=2,widths=c(0.5,0.5,1)))
 
 
