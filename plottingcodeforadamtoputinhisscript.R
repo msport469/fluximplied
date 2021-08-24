@@ -197,11 +197,19 @@ write.csv(edown$Reactome_2016,'./compare/downReactome_2016-LFC_0.5_.csv')
 
 
 ##### fluximplied stuff #####
-fluximplied(AdiposevLiver,padjcolname = 'padj')
-fluximplied(AdiposevPutamen,padjcolname = 'padj')
-fluximplied(LivervPutamen,padjcolname = 'padj')
+fluximplied(AdiposevLiver,species = 'hsa',padjcolname = 'padj')
+AdiposevLiverplot<-fluximpliedplot
 
+fluximplied(AdiposevPutamen,species = 'hsa',padjcolname = 'padj')
+AdiposevPutamenplot<-fluximpliedplot
 
+fluximplied(LivervPutamen,species = 'hsa',padjcolname = 'padj')
+LivervPutamenplot<-fluximpliedplot
+
+q<-AdiposevLiverplot
+w<-AdiposevPutamenplot
+e<-LivervPutamenplot
+grid.arrange(q,w,e)
 #### gridarranging plots ####
 
 barplots<-grid.arrange(arrangeGrob(reactomebarplot,keggbarplot,nrow=1,widths=c(1.5,1)))
