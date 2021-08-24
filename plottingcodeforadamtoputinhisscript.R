@@ -70,7 +70,7 @@ edown <- enrichr(list_down, dbs)
 #   # labs(title= "") +
 #   ylab('Combined Score') +
 #   xlab(NULL)+
-#   labs(fill = bquote('P'['adj']))+
+#   labs(fill = bquote(-log(P[adj]))) +
 #   coord_flip()
 
 
@@ -104,9 +104,8 @@ reactmouse<-ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap))
   ylab('Overlap') +
   ylim(-1, 1) +
   xlab(NULL)+
-  labs(fill = bquote('-log(P'['adj']')'))+
+  labs(fill = bquote(-log(P[adj]))) +
   coord_flip()
-
 reactmouse
 
 write.csv(eup$Reactome_2016,'enrichrcsvs/upreactome-mouse-LFC_0.5_.csv')
@@ -144,7 +143,7 @@ ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap)) +
   ylab('Overlap') +
   ylim(-1, 1) +
   xlab(NULL)+
-  labs(fill = bquote('-log P'['adj']))+
+  labs(fill = bquote(-log(P[adj]))) +
   coord_flip()
 
 temp <- up
@@ -184,7 +183,7 @@ ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap)) +
   ylab('Overlap') +
   ylim(-1, 1) +
   xlab(NULL)+
-  labs(fill = bquote('-log P'['adj']))+
+  labs(fill = bquote(-log(P[adj]))) +
   coord_flip()
 reactomebarplot
 
