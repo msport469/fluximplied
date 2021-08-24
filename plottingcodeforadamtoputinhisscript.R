@@ -189,14 +189,17 @@ reactomebarplot
 
 ##### write human csvs #####
 write.csv(eup$KEGG_2019_Human,'./comparecsvs/upKEGG_2019_Human-LFC_0.5_.csv')
-write.csv(eup$Reactome_2016,'./comparecsvs/upReactome_2016-LFC_0.5_.csv')
+write.csv(eup$Reactome_2016,'./comparecsvs/upReactome_2016_Human-LFC_0.5_.csv')
 
 write.csv(edown$KEGG_2019_Human,'./compare/downKEGG_2019_Human-LFC_0.5_.csv')
-write.csv(edown$Reactome_2016,'./compare/downReactome_2016-LFC_0.5_.csv')
+write.csv(edown$Reactome_2016,'./compare/downReactome_2016_Human-LFC_0.5_.csv')
 
 
 
 ##### fluximplied stuff #####
+fluximplied(inputdatgseamouse,padjcolname = 'weighted_pvalue')
+mouseplot<-fluximpliedplot
+
 fluximplied(AdiposevLiver,species = 'hsa',padjcolname = 'padj')
 AdiposevLiverplot<-fluximpliedplot
 
@@ -206,10 +209,11 @@ AdiposevPutamenplot<-fluximpliedplot
 fluximplied(LivervPutamen,species = 'hsa',padjcolname = 'padj')
 LivervPutamenplot<-fluximpliedplot
 
-q<-AdiposevLiverplot
-w<-AdiposevPutamenplot
-e<-LivervPutamenplot
-grid.arrange(q,w,e)
+q<-AdiposevLiverplot+ggtitle('Adipose vs. Liver')
+w<-AdiposevPutamenplot+ggtitle('Adipose vs. Putamen')
+e<-LivervPutamenplot+ggtitle('Liver vs. Putamen')
+r<-mouseplot+ggtitle('TRM vs circulating T cells')
+grid.arrange(q,w,e,r,ncol=1)
 #### gridarranging plots ####
 
 barplots<-grid.arrange(arrangeGrob(reactomebarplot,keggbarplot,nrow=1,widths=c(1.5,1)))
