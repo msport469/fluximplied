@@ -9,9 +9,7 @@ library(fluximplied)
 AdiposevLiver<-readRDS('humandata/AdiposevLiver.RDS')
 AdiposevPutamen<-readRDS('humandata/AdiposevPutamen.RDS')
 LivervPutamen<-readRDS('humandata/LivervPutamen.RDS')
-write.csv(AdiposevLiver,'AdiposevLiver.csv')
-write.csv(AdiposevPutamen,'AdiposevPutamen.csv')
-write.csv(LivervPutamen,'LivervPutamen.csv')
+
 #p value subset
 inputdatgseaAvL <- AdiposevLiver[AdiposevLiver[,"padj"]<0.05,]
 inputdatgseaAvP <- AdiposevPutamen[AdiposevPutamen[,"padj"]<0.05,]
