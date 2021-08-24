@@ -204,11 +204,11 @@ AvLreactplot<-ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap
 AvLreactplot
 
 ##### write human csvs #####
-write.csv(eup$KEGG_2019_Human,'./comparecsvs/AvL-upKEGG_2019_Human-LFC_0.5_.csv')
-write.csv(eup$Reactome_2016,'./comparecsvs/AvL-upReactome_2016_Human-LFC_0.5_.csv')
+write.csv(eup$KEGG_2019_Human,'./enrichrcsvs/AvL-upKEGG_2019_Human-LFC_0.5_.csv')
+write.csv(eup$Reactome_2016,'./enrichrcsvs/AvL-upReactome_2016_Human-LFC_0.5_.csv')
 
-write.csv(edown$KEGG_2019_Human,'./compare/AvL-downKEGG_2019_Human-LFC_0.5_.csv')
-write.csv(edown$Reactome_2016,'./compare/AvL-downReactome_2016_Human-LFC_0.5_.csv')
+write.csv(edown$KEGG_2019_Human,'./enrichrcsvs/AvL-downKEGG_2019_Human-LFC_0.5_.csv')
+write.csv(edown$Reactome_2016,'./enrichrcsvs/AvL-downReactome_2016_Human-LFC_0.5_.csv')
 
 
 #AvP
@@ -285,11 +285,11 @@ AvPreactplot<-ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap
 AvPreactplot
 
 ##### write human csvs #####
-write.csv(eup$KEGG_2019_Human,'./comparecsvs/AvP-upKEGG_2019_Human-LFC_0.5_.csv')
-write.csv(eup$Reactome_2016,'./comparecsvs/AvP-upReactome_2016_Human-LFC_0.5_.csv')
+write.csv(eup$KEGG_2019_Human,'./enrichrcsvs/AvP-upKEGG_2019_Human-LFC_0.5_.csv')
+write.csv(eup$Reactome_2016,'./enrichrcsvs/AvP-upReactome_2016_Human-LFC_0.5_.csv')
 
-write.csv(edown$KEGG_2019_Human,'./compare/AvP-downKEGG_2019_Human-LFC_0.5_.csv')
-write.csv(edown$Reactome_2016,'./compare/AvP-downReactome_2016_Human-LFC_0.5_.csv')
+write.csv(edown$KEGG_2019_Human,'./enrichrcsvs/AvP-downKEGG_2019_Human-LFC_0.5_.csv')
+write.csv(edown$Reactome_2016,'./enrichrcsvs/AvP-downReactome_2016_Human-LFC_0.5_.csv')
 
 #LvP
 list_up <- c(upgenesLvP)
@@ -365,25 +365,14 @@ LvPreactplot<-ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap
 LvPreactplot
 
 ##### write human csvs #####
-write.csv(eup$KEGG_2019_Human,'./comparecsvs/LvP-upKEGG_2019_Human-LFC_0.5_.csv')
-write.csv(eup$Reactome_2016,'./comparecsvs/LvP-upReactome_2016_Human-LFC_0.5_.csv')
+write.csv(eup$KEGG_2019_Human,'./enrichrcsvs/LvP-upKEGG_2019_Human-LFC_0.5_.csv')
+write.csv(eup$Reactome_2016,'./enrichrcsvs/LvP-upReactome_2016_Human-LFC_0.5_.csv')
 
-write.csv(edown$KEGG_2019_Human,'./compare/LvP-downKEGG_2019_Human-LFC_0.5_.csv')
-write.csv(edown$Reactome_2016,'./compare/LvP-downReactome_2016_Human-LFC_0.5_.csv')
+write.csv(edown$KEGG_2019_Human,'./enrichrcsvs/LvP-downKEGG_2019_Human-LFC_0.5_.csv')
+write.csv(edown$Reactome_2016,'./enrichrcsvs/LvP-downReactome_2016_Human-LFC_0.5_.csv')
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+##### fluximplied stuff #####
+##### fluximplied stuff #####
 ##### fluximplied stuff #####
 fluximplied(inputdatgseamouse,padjcolname = 'weighted_pvalue')
 mouseplot<-fluximpliedplot
@@ -401,10 +390,25 @@ q<-AdiposevLiverplot+ggtitle('Adipose vs. Liver')
 w<-AdiposevPutamenplot+ggtitle('Adipose vs. Putamen')
 e<-LivervPutamenplot+ggtitle('Liver vs. Putamen')
 r<-mouseplot+ggtitle('TRM vs circulating T cells')
-t<-reactmouse+ggtitle('')
-grid.arrange(q,w,e,r,ncol=1)
-grid.arrange(r,reactmouse)
+
 #### gridarranging plots ####
+#kegg
+a<-AvLkeggplot+ggtitle('Adipose vs. Liver')
+s<-AvPkeggplot+ggtitle('Adipose vs. Putamen')
+d<-LvPkeggplot+ggtitle('Liver vs. Putamen')
+
+grid.arrange(a,s,d,ncol=1)
+
+#react
+z<-AvLreactplot+ggtitle('Adipose vs. Liver')
+x<-AvPreactplot+ggtitle('Adipose vs. Putamen')
+c<-LvPreactplot+ggtitle('Liver vs. Putamen')
+v<-reactmouse+ggtitle('TRM vs circulating T cells')
+
+grid.arrange(z,x,c,v,ncol=1)
+
+#fluximplied
+grid.arrange(q,w,e,r,ncol=1)
 
 barplots<-grid.arrange(arrangeGrob(reactomebarplot,keggbarplot,nrow=1,widths=c(1.5,1)))
 barplots
