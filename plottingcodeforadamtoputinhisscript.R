@@ -17,12 +17,18 @@ inputdatgseaLvP <- LivervPutamen[LivervPutamen[,"padj"]<0.05,]
 #LFC cutoff
 inputdatgseaAvLup <- inputdatgseaAvL[inputdatgseaAvL[,"log2FoldChange"]>0.5,]
 inputdatgseaAvLdown <- inputdatgseaAvL[inputdatgseaAvL[,"log2FoldChange"]<(-0.5),]
+upgenesAvL<-rownames(inputdatgseaAvLup)
+downgenesAvL<-rownames(inputdatgseaAvLdown)
 
 inputdatgseaAvPup <- inputdatgseaAvP[inputdatgseaAvP[,"log2FoldChange"]>0.5,]
 inputdatgseaAvPdown <- inputdatgseaAvP[inputdatgseaAvP[,"log2FoldChange"]<(-0.5),]
+upgenesAvP<-rownames(inputdatgseaAvPup)
+downgenesAvP<-rownames(inputdatgseaAvPdown)
 
 inputdatgseaLvPup <- inputdatgseaLvP[inputdatgseaLvP[,"log2FoldChange"]>0.5,]
 inputdatgseaLvPdown <- inputdatgseaLvP[inputdatgseaLvP[,"log2FoldChange"]<(-0.5),]
+upgenesLvP<-rownames(inputdatgseaLvPup)
+downgenesLvP<-rownames(inputdatgseaLvPdown)
 
 ####read in MOUSEYMOUSEYMOUSEY YEAH####
 inputdatgseamouse<-readRDS('mousedata/DPDNdfmouse.RDS')
@@ -114,6 +120,13 @@ write.csv(edown$Reactome_2016,'enrichrcsvs/downreactome-mouse-LFC_0.5_.csv')
 ###############
 #############
 ###### Hoooman #####
+
+#AvL
+list_up <- c(upgenesAvL)
+list_down <- c(downgenesAvL)
+eup <- enrichr(list_up, dbs)
+edown <- enrichr(list_down, dbs)
+
 up <- eup$KEGG_2019_Human
 down <- edown$KEGG_2019_Human
 up$type <- "up"
@@ -136,7 +149,7 @@ gos <- rbind(down,up)
 gos <- na.omit(gos) # Diverging Barcharts
 gos$logpadj <- -log10(gos$Adjusted.P.value)
 gos$Overlap[1:10] <- -(gos$Overlap[1:10])
-ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap)) + 
+AvLkeggplot<-ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap)) + 
   geom_bar(stat='identity', aes(fill=logpadj), width=.5,position="dodge")  +
   scale_fill_viridis() + 
   # labs(title= "") +
@@ -145,13 +158,16 @@ ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap)) +
   xlab(NULL)+
   labs(fill = bquote(-log(P[adj]))) +
   coord_flip()
+AvLkeggplot
 
-temp <- up
-temp <- separate(temp, Overlap, sep = "/", into = c("Num", "Denom"))
-temp1 <- temp
-temp1$Num <- as.numeric(temp$Num)
-temp1$Denom <- as.numeric(temp$Denom)
-temp1$Overlap <- temp1$Num / temp1$Denom
+
+# i think we don't need this chunk anymore
+# temp <- up
+# temp <- separate(temp, Overlap, sep = "/", into = c("Num", "Denom"))
+# temp1 <- temp
+# temp1$Num <- as.numeric(temp$Num)
+# temp1$Denom <- as.numeric(temp$Denom)
+# temp1$Overlap <- temp1$Num / temp1$Denom
 
 #Reactome 2016 human
 up <- eup$Reactome_2016
@@ -176,7 +192,7 @@ gos <- rbind(down,up)
 gos <- na.omit(gos) # Diverging Barcharts
 gos$logpadj <- -log10(gos$Adjusted.P.value)
 gos$Overlap[1:10] <- -(gos$Overlap[1:10])
-ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap)) + 
+AvLreactplot<-ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap)) + 
   geom_bar(stat='identity', aes(fill=logpadj), width=.5,position="dodge")  +
   scale_fill_viridis() + 
   # labs(title= "") +
@@ -185,14 +201,186 @@ ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap)) +
   xlab(NULL)+
   labs(fill = bquote(-log(P[adj]))) +
   coord_flip()
-reactomebarplot
+AvLreactplot
 
 ##### write human csvs #####
-write.csv(eup$KEGG_2019_Human,'./comparecsvs/upKEGG_2019_Human-LFC_0.5_.csv')
-write.csv(eup$Reactome_2016,'./comparecsvs/upReactome_2016_Human-LFC_0.5_.csv')
+write.csv(eup$KEGG_2019_Human,'./comparecsvs/AvL-upKEGG_2019_Human-LFC_0.5_.csv')
+write.csv(eup$Reactome_2016,'./comparecsvs/AvL-upReactome_2016_Human-LFC_0.5_.csv')
 
-write.csv(edown$KEGG_2019_Human,'./compare/downKEGG_2019_Human-LFC_0.5_.csv')
-write.csv(edown$Reactome_2016,'./compare/downReactome_2016_Human-LFC_0.5_.csv')
+write.csv(edown$KEGG_2019_Human,'./compare/AvL-downKEGG_2019_Human-LFC_0.5_.csv')
+write.csv(edown$Reactome_2016,'./compare/AvL-downReactome_2016_Human-LFC_0.5_.csv')
+
+
+#AvP
+list_up <- c(upgenesAvP)
+list_down <- c(downgenesAvP)
+eup <- enrichr(list_up, dbs)
+edown <- enrichr(list_down, dbs)
+
+up <- eup$KEGG_2019_Human
+down <- edown$KEGG_2019_Human
+up$type <- "up"
+down$type <- "down"
+up <- up[up$Adjusted.P.value<.05,]
+up <- up[order(up$Combined.Score, decreasing = TRUE), ]  # sort
+down <- down[down$Adjusted.P.value<0.05,]
+down <- down[order(down$Combined.Score, decreasing = TRUE), ]  # sort
+up<-up[1:10,]
+up <- separate(up, Overlap, sep = "/", into = c("Num", "Denom"))
+up$Num <- as.numeric(up$Num)
+up$Denom <- as.numeric(up$Denom)
+up$Overlap <- up$Num / up$Denom
+down<-down[1:10,]
+down <- separate(down, Overlap, sep = "/", into = c("Num", "Denom"))
+down$Num <- as.numeric(down$Num)
+down$Denom <- as.numeric(down$Denom)
+down$Overlap <- down$Num / down$Denom
+gos <- rbind(down,up)
+gos <- na.omit(gos) # Diverging Barcharts
+gos$logpadj <- -log10(gos$Adjusted.P.value)
+gos$Overlap[1:10] <- -(gos$Overlap[1:10])
+AvPkeggplot<-ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap)) + 
+  geom_bar(stat='identity', aes(fill=logpadj), width=.5,position="dodge")  +
+  scale_fill_viridis() + 
+  # labs(title= "") +
+  ylab('Overlap') +
+  ylim(-1, 1) +
+  xlab(NULL)+
+  labs(fill = bquote(-log(P[adj]))) +
+  coord_flip()
+AvPkeggplot
+
+#Reactome 2016 human
+up <- eup$Reactome_2016
+down <- edown$Reactome_2016
+up$type <- "up"
+down$type <- "down"
+up <- up[up$Adjusted.P.value<.05,]
+up <- up[order(up$Combined.Score, decreasing = TRUE), ]  # sort
+down <- down[down$Adjusted.P.value<0.05,]
+down <- down[order(down$Combined.Score, decreasing = TRUE), ]  # sort
+up<-up[1:10,]
+up <- separate(up, Overlap, sep = "/", into = c("Num", "Denom"))
+up$Num <- as.numeric(up$Num)
+up$Denom <- as.numeric(up$Denom)
+up$Overlap <- up$Num / up$Denom
+down<-down[1:10,]
+down <- separate(down, Overlap, sep = "/", into = c("Num", "Denom"))
+down$Num <- as.numeric(down$Num)
+down$Denom <- as.numeric(down$Denom)
+down$Overlap <- down$Num / down$Denom
+gos <- rbind(down,up)
+gos <- na.omit(gos) # Diverging Barcharts
+gos$logpadj <- -log10(gos$Adjusted.P.value)
+gos$Overlap[1:10] <- -(gos$Overlap[1:10])
+AvPreactplot<-ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap)) + 
+  geom_bar(stat='identity', aes(fill=logpadj), width=.5,position="dodge")  +
+  scale_fill_viridis() + 
+  # labs(title= "") +
+  ylab('Overlap') +
+  ylim(-1, 1) +
+  xlab(NULL)+
+  labs(fill = bquote(-log(P[adj]))) +
+  coord_flip()
+AvPreactplot
+
+##### write human csvs #####
+write.csv(eup$KEGG_2019_Human,'./comparecsvs/AvP-upKEGG_2019_Human-LFC_0.5_.csv')
+write.csv(eup$Reactome_2016,'./comparecsvs/AvP-upReactome_2016_Human-LFC_0.5_.csv')
+
+write.csv(edown$KEGG_2019_Human,'./compare/AvP-downKEGG_2019_Human-LFC_0.5_.csv')
+write.csv(edown$Reactome_2016,'./compare/AvP-downReactome_2016_Human-LFC_0.5_.csv')
+
+#LvP
+list_up <- c(upgenesLvP)
+list_down <- c(downgenesLvP)
+eup <- enrichr(list_up, dbs)
+edown <- enrichr(list_down, dbs)
+
+up <- eup$KEGG_2019_Human
+down <- edown$KEGG_2019_Human
+up$type <- "up"
+down$type <- "down"
+up <- up[up$Adjusted.P.value<.05,]
+up <- up[order(up$Combined.Score, decreasing = TRUE), ]  # sort
+down <- down[down$Adjusted.P.value<0.05,]
+down <- down[order(down$Combined.Score, decreasing = TRUE), ]  # sort
+up<-up[1:10,]
+up <- separate(up, Overlap, sep = "/", into = c("Num", "Denom"))
+up$Num <- as.numeric(up$Num)
+up$Denom <- as.numeric(up$Denom)
+up$Overlap <- up$Num / up$Denom
+down<-down[1:10,]
+down <- separate(down, Overlap, sep = "/", into = c("Num", "Denom"))
+down$Num <- as.numeric(down$Num)
+down$Denom <- as.numeric(down$Denom)
+down$Overlap <- down$Num / down$Denom
+gos <- rbind(down,up)
+gos <- na.omit(gos) # Diverging Barcharts
+gos$logpadj <- -log10(gos$Adjusted.P.value)
+gos$Overlap[1:10] <- -(gos$Overlap[1:10])
+LvPkeggplot<-ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap)) + 
+  geom_bar(stat='identity', aes(fill=logpadj), width=.5,position="dodge")  +
+  scale_fill_viridis() + 
+  # labs(title= "") +
+  ylab('Overlap') +
+  ylim(-1, 1) +
+  xlab(NULL)+
+  labs(fill = bquote(-log(P[adj]))) +
+  coord_flip()
+LvPkeggplot
+
+#Reactome 2016 human
+up <- eup$Reactome_2016
+down <- edown$Reactome_2016
+up$type <- "up"
+down$type <- "down"
+up <- up[up$Adjusted.P.value<.05,]
+up <- up[order(up$Combined.Score, decreasing = TRUE), ]  # sort
+down <- down[down$Adjusted.P.value<0.05,]
+down <- down[order(down$Combined.Score, decreasing = TRUE), ]  # sort
+up<-up[1:10,]
+up <- separate(up, Overlap, sep = "/", into = c("Num", "Denom"))
+up$Num <- as.numeric(up$Num)
+up$Denom <- as.numeric(up$Denom)
+up$Overlap <- up$Num / up$Denom
+down<-down[1:10,]
+down <- separate(down, Overlap, sep = "/", into = c("Num", "Denom"))
+down$Num <- as.numeric(down$Num)
+down$Denom <- as.numeric(down$Denom)
+down$Overlap <- down$Num / down$Denom
+gos <- rbind(down,up)
+gos <- na.omit(gos) # Diverging Barcharts
+gos$logpadj <- -log10(gos$Adjusted.P.value)
+gos$Overlap[1:10] <- -(gos$Overlap[1:10])
+LvPreactplot<-ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap)) + 
+  geom_bar(stat='identity', aes(fill=logpadj), width=.5,position="dodge")  +
+  scale_fill_viridis() + 
+  # labs(title= "") +
+  ylab('Overlap') +
+  ylim(-1, 1) +
+  xlab(NULL)+
+  labs(fill = bquote(-log(P[adj]))) +
+  coord_flip()
+LvPreactplot
+
+##### write human csvs #####
+write.csv(eup$KEGG_2019_Human,'./comparecsvs/LvP-upKEGG_2019_Human-LFC_0.5_.csv')
+write.csv(eup$Reactome_2016,'./comparecsvs/LvP-upReactome_2016_Human-LFC_0.5_.csv')
+
+write.csv(edown$KEGG_2019_Human,'./compare/LvP-downKEGG_2019_Human-LFC_0.5_.csv')
+write.csv(edown$Reactome_2016,'./compare/LvP-downReactome_2016_Human-LFC_0.5_.csv')
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -213,6 +401,7 @@ q<-AdiposevLiverplot+ggtitle('Adipose vs. Liver')
 w<-AdiposevPutamenplot+ggtitle('Adipose vs. Putamen')
 e<-LivervPutamenplot+ggtitle('Liver vs. Putamen')
 r<-mouseplot+ggtitle('TRM vs circulating T cells')
+t<-reactmouse+ggtitle('')
 grid.arrange(q,w,e,r,ncol=1)
 grid.arrange(r,reactmouse)
 #### gridarranging plots ####
