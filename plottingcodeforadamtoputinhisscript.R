@@ -41,15 +41,16 @@ downgenes<-downgenesmouse
 #set up dbs for gsea
 dbs <- c("KEGG_2019_Human",'Reactome_2016')
 
+##### Mouse #####
+##### Mouse #####
+##### Mouse #####
 #get ready to plot 
 list_up <- c(upgenes)
 list_down <- c(downgenes)
 eup <- enrichr(list_up, dbs)
 edown <- enrichr(list_down, dbs)
 
-##### Mouse #####
-##### Mouse #####
-##### Mouse #####
+
 
 #####there are no up or down pathways in KEGG mouse cutoff lfc=0.5 or -0.5
 # up <- eup$KEGG_2019_Mouse
@@ -103,7 +104,7 @@ reactmouse<-ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap))
   ylab('Overlap') +
   ylim(-1, 1) +
   xlab(NULL)+
-  labs(fill = bquote('-log P'['adj']))+
+  labs(fill = bquote('-log(P'['adj']')'))+
   coord_flip()
 
 reactmouse
@@ -214,6 +215,7 @@ w<-AdiposevPutamenplot+ggtitle('Adipose vs. Putamen')
 e<-LivervPutamenplot+ggtitle('Liver vs. Putamen')
 r<-mouseplot+ggtitle('TRM vs circulating T cells')
 grid.arrange(q,w,e,r,ncol=1)
+grid.arrange(r,reactmouse)
 #### gridarranging plots ####
 
 barplots<-grid.arrange(arrangeGrob(reactomebarplot,keggbarplot,nrow=1,widths=c(1.5,1)))
