@@ -15,13 +15,12 @@ I think most of us would agree that higher levels of the enzyme that is the rate
 # The solution
 Here, we present the function fluximplied (as well as the functions it depends on). Fluximplied needs a list of genes or a dataframe result from differential expression analysis, the species that the genes are from (it currently accepts only mouse and human), as well as how those genes are encoded (as official gene symbols or official ENTREZIDs). We have created a publicly accessible database of rate limiting steps and the gene that encodes them. The function compares your supplied gene list with this database and looks for overlaps, and then returns those overlaps to help you generate hypotheses and followup analyses with flux balance analysis or other functional assays. 
 
-In order to maintain statisitcal rigor, P values, what we term "P adjust adjust" or "P<sub>adjadj</sub>", are determined with standard P adjustment of the P values which were already Padjusted during the differential expression analysis. Fluximplied will will adjust the P<sub>adj</sub> using the Benjamini Hochberg (BH) method for the number of comparisons being made with the Rate Limiting Step Database, that is, the number of genes within that database.
-
+In order to maintain statisitcal rigor, P values, what we term "P adjust adjust" or "P<sub>adjadj</sub>", are determined with standard P adjustment of the P values which were adjusted during the differential expression analysis. Fluximplied will will adjust the P<sub>adj</sub> using the Benjamini Hochberg (BH) method for the number of comparisons being made with the Rate Limiting Step Database, that is, the number of genes within that database.
 # How to install
 
 **Mac and PC**
 
-You can use an interactive graphic user interface (GUI) which allows you to upload your CSV (which you can make by exporting from excel), and returns a table of rate limiting steps, a bar graph of your results, and text explaining the meaning of your results. You can access that GUI here:
+You can use an interactive graphic user interface (GUI) which allows you to upload your CSV (which you can make by exporting from excel), and returns a table of rate limiting steps, a bar graph of your results, and text explaining the meaning of your results. You can access that GUI here: https://sportiellomike.shinyapps.io/fluximplied/
 
 Or, for those with more experience using R, simply install the package (ensure you have an internet connection):
 
