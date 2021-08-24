@@ -13,9 +13,9 @@ AdiposevLiver<-readRDS('humandata/AdiposevLiver.RDS')
 AdiposevPutamen<-readRDS('humandata/AdiposevPutamen.RDS')
 LivervPutamen<-readRDS('humandata/LivervPutamen.RDS')
 #p value subset
-inputdatgseaAvL <- AdiposevLiver[AdiposevLiver[,"weighted_pvalue"]<0.05,]
-inputdatgseaAvP <- AdiposevPutamen[AdiposevPutamen[,"weighted_pvalue"]<0.05,]
-inputdatgseaLvP <- LivervPutamen[LivervPutamen[,"weighted_pvalue"]<0.05,]
+inputdatgseaAvL <- AdiposevLiver[AdiposevLiver[,"padj"]<0.05,]
+inputdatgseaAvP <- AdiposevPutamen[AdiposevPutamen[,"padj"]<0.05,]
+inputdatgseaLvP <- LivervPutamen[LivervPutamen[,"padj"]<0.05,]
 #LFC cutoff
 inputdatgseaAvLup <- inputdatgseaAvL[inputdatgseaAvL[,"log2FoldChange"]>0.5,]
 inputdatgseaAvLdown <- inputdatgseaAvL[inputdatgseaAvL[,"log2FoldChange"]<(-0.5),]
