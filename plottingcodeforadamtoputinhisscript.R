@@ -5,15 +5,12 @@ library(enrichR)
 library(gridExtra)
 library(tidyr)
 library(fluximplied)
+library(cowplot)
 #read in humans
 AdiposevLiver<-readRDS('humandata/AdiposevLiver.RDS')
 AdiposevPutamen<-readRDS('humandata/AdiposevPutamen.RDS')
 LivervPutamen<-readRDS('humandata/LivervPutamen.RDS')
 
-#p value subset
-inputdatgseaAvL <- AdiposevLiver[AdiposevLiver[,"padj"]<0.05,]
-inputdatgseaAvP <- AdiposevPutamen[AdiposevPutamen[,"padj"]<0.05,]
-inputdatgseaLvP <- LivervPutamen[LivervPutamen[,"padj"]<0.05,]
 #LFC cutoff
 inputdatgseaAvLup <- inputdatgseaAvL[inputdatgseaAvL[,"log2FoldChange"]>0.5,]
 inputdatgseaAvLdown <- inputdatgseaAvL[inputdatgseaAvL[,"log2FoldChange"]<(-0.5),]
@@ -58,28 +55,6 @@ edown <- enrichr(list_down, dbs)
 
 
 
-#####there are no up or down pathways in KEGG mouse cutoff lfc=0.5 or -0.5
-# up <- eup$KEGG_2019_Mouse
-# down <- edown$KEGG_2019_Mouse
-# up$type <- "up"
-# down$type <- "down"
-# up <- up[up$Adjusted.P.value<.05,]
-# up <- up[order(up$Combined.Score), ]  # sort
-# down <- down[down$Adjusted.P.value<0.05,]
-# down <- down[order(down$Combined.Score), ]  # sort
-# down$Combined.Score <- (-1) * down$Combined.Score
-# gos <- rbind(down,up)
-# gos <- na.omit(gos) # Diverging Barcharts
-# keggbarplot<-ggplot(gos, aes(x=reorder(Term,Combined.Score), y=Combined.Score , label=Combined.Score)) + 
-#   geom_bar(stat='identity', aes(fill=Adjusted.P.value), width=.5,position="dodge")  +
-#   scale_fill_viridis() + 
-#   # labs(title= "") +
-#   ylab('Combined Score') +
-#   xlab(NULL)+
-#   labs(fill = bquote(-log(P[adj]))) +
-#   coord_flip()
-
-
 #Reactome 2016 mouse
 up <- eup$Reactome_2016
 down <- edown$Reactome_2016
@@ -103,6 +78,8 @@ gos <- rbind(down,up)
 gos <- na.omit(gos) # Diverging Barcharts
 gos$logpadj <- -log10(gos$Adjusted.P.value)
 gos$Overlap[1:10] <- -(gos$Overlap[1:10])
+gos$Term <- sub("\ Homo.*$", "", gos$Term) # remove Reactome-specific IDs
+gos$Term <- sub("independent", "\nindependent", gos$Term) # insert linebreak
 reactmouse<-ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap)) + 
   geom_bar(stat='identity', aes(fill=logpadj), width=.5,position="dodge")  +
   scale_fill_viridis() + 
@@ -160,15 +137,6 @@ AvLkeggplot<-ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap)
   coord_flip()
 AvLkeggplot
 
-
-# i think we don't need this chunk anymore
-# temp <- up
-# temp <- separate(temp, Overlap, sep = "/", into = c("Num", "Denom"))
-# temp1 <- temp
-# temp1$Num <- as.numeric(temp$Num)
-# temp1$Denom <- as.numeric(temp$Denom)
-# temp1$Overlap <- temp1$Num / temp1$Denom
-
 #Reactome 2016 human
 up <- eup$Reactome_2016
 down <- edown$Reactome_2016
@@ -192,6 +160,8 @@ gos <- rbind(down,up)
 gos <- na.omit(gos) # Diverging Barcharts
 gos$logpadj <- -log10(gos$Adjusted.P.value)
 gos$Overlap[1:10] <- -(gos$Overlap[1:10])
+gos$Term <- sub("\ Homo.*$", "", gos$Term) # remove Reactome-specific IDs
+gos$Term <- sub("cell\ spreading", "\ncell\ spreading", gos$Term) # insert linebreak
 AvLreactplot<-ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap)) + 
   geom_bar(stat='identity', aes(fill=logpadj), width=.5,position="dodge")  +
   scale_fill_viridis() + 
@@ -273,6 +243,8 @@ gos <- rbind(down,up)
 gos <- na.omit(gos) # Diverging Barcharts
 gos$logpadj <- -log10(gos$Adjusted.P.value)
 gos$Overlap[1:10] <- -(gos$Overlap[1:10])
+gos$Term <- sub("\ Homo.*$", "", gos$Term) # remove Reactome-specific IDs
+gos$Term <- sub("Triggers", "\nTriggers", gos$Term) # insert linebreak
 AvPreactplot<-ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap)) + 
   geom_bar(stat='identity', aes(fill=logpadj), width=.5,position="dodge")  +
   scale_fill_viridis() + 
@@ -353,6 +325,8 @@ gos <- rbind(down,up)
 gos <- na.omit(gos) # Diverging Barcharts
 gos$logpadj <- -log10(gos$Adjusted.P.value)
 gos$Overlap[1:10] <- -(gos$Overlap[1:10])
+gos$Term <- sub("\ Homo.*$", "", gos$Term) # remove Reactome-specific IDs
+gos$Term <- sub("Triggers", "\nTriggers", gos$Term) # insert linebreak
 LvPreactplot<-ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap)) + 
   geom_bar(stat='identity', aes(fill=logpadj), width=.5,position="dodge")  +
   scale_fill_viridis() + 
@@ -391,6 +365,7 @@ LivervPutamenfluxplot<-fluximpliedplot
 a<-AvLkeggplot+ggtitle('Adipose vs. Liver')
 s<-AvPkeggplot+ggtitle('Adipose vs. Putamen')
 d<-LvPkeggplot+ggtitle('Liver vs. Putamen')
+plot_grid(a,s,d, ncol = 1, align = "v")
 
 grid.arrange(a,s,d,ncol=1)
 
@@ -399,6 +374,7 @@ z<-AvLreactplot+ggtitle('Adipose vs. Liver')
 x<-AvPreactplot+ggtitle('Adipose vs. Putamen')
 c<-LvPreactplot+ggtitle('Liver vs. Putamen')
 v<-reactmouse+ggtitle('TRM vs circulating T cells')
+plot_grid(z,x,c,v, ncol = 1, align = "v")
 
 grid.arrange(z,x,c,v,ncol=1)
 
@@ -408,6 +384,10 @@ w<-AdiposevPutamenfluxplot+ggtitle('Adipose vs. Putamen')
 e<-LivervPutamenfluxplot+ggtitle('Liver vs. Putamen')
 r<-mousefluxplot+ggtitle('TRM vs circulating T cells')
 grid.arrange(q,w,e,r,ncol=1)
+plot_grid(q,w,e,r, ncol = 1, align = "v")
+
+# Adipose v Liver
+plot_grid(a, z, q, ncol = 1, align = "v")
 
 ######
 grid.arrange(a,z,q,ncol=1)
