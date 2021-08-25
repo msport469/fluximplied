@@ -1,5 +1,3 @@
-This is Adam's edit on line 1!
+ubhkyvguyo
 
-This will conflict, as will line 1.
-
-This will not conflict because you didn't write here.
+bhijklbinuo
