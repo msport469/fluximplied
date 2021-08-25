@@ -6,6 +6,7 @@ library(gridExtra)
 library(tidyr)
 library(fluximplied)
 library(cowplot)
+theme_set(theme_grey(base_size=8))
 #read in humans
 AdiposevLiver<-readRDS('humandata/AdiposevLiver.RDS')
 AdiposevPutamen<-readRDS('humandata/AdiposevPutamen.RDS')
@@ -362,32 +363,44 @@ LivervPutamenfluxplot<-fluximpliedplot
 
 #### gridarranging plots ####
 #kegg
-a<-AvLkeggplot+ggtitle('Adipose vs. Liver')
-s<-AvPkeggplot+ggtitle('Adipose vs. Putamen')
-d<-LvPkeggplot+ggtitle('Liver vs. Putamen')
+a<-AvLkeggplot+ggtitle('KEGG')+theme(text = element_text(size=9))
+s<-AvPkeggplot+ggtitle('KEGG')+theme(text = element_text(size=9))
+d<-LvPkeggplot+ggtitle('KEGG')+theme(text = element_text(size=9))
 plot_grid(a,s,d, ncol = 1, align = "v")
+
+
 
 grid.arrange(a,s,d,ncol=1)
 
 #react
-z<-AvLreactplot+ggtitle('Adipose vs. Liver')
-x<-AvPreactplot+ggtitle('Adipose vs. Putamen')
-c<-LvPreactplot+ggtitle('Liver vs. Putamen')
-v<-reactmouse+ggtitle('TRM vs circulating T cells')
+z<-AvLreactplot+ggtitle('Reactome')+theme(text = element_text(size=9))
+x<-AvPreactplot+ggtitle('Reactome')+theme(text = element_text(size=9))
+c<-LvPreactplot+ggtitle('Reactome')+theme(text = element_text(size=9))
+v<-reactmouse+ggtitle('Reactome')+theme(text = element_text(size=9))
 plot_grid(z,x,c,v, ncol = 1, align = "v")
 
 grid.arrange(z,x,c,v,ncol=1)
 
 #fluximplied
-q<-AdiposevLiverfluxplot+ggtitle('Adipose vs. Liver')
-w<-AdiposevPutamenfluxplot+ggtitle('Adipose vs. Putamen')
-e<-LivervPutamenfluxplot+ggtitle('Liver vs. Putamen')
-r<-mousefluxplot+ggtitle('TRM vs circulating T cells')
-grid.arrange(q,w,e,r,ncol=1)
-plot_grid(q,w,e,r, ncol = 1, align = "v")
+q<-AdiposevLiverfluxplot+ggtitle('fluximplied')+textGrob(gp=gpar(fontsize=3))
+w<-AdiposevPutamenfluxplot+ggtitle('fluximplied')+theme(text = element_text(size=9))
+e<-LivervPutamenfluxplot+ggtitle('fluximplied')+theme(text = element_text(size=9))
+r<-mousefluxplot+ggtitle('fluximplied')+theme(text = element_text(size=9))
+grid.arrange(q,w,e,r,ncol=2)
+bob<-plot_grid(q,w,e,r, ncol = 2)
+bob
+bob+theme(text = element_text(size=9))
+plot_grid(q,w,e,r, ncol = 2, align = "v",font_size=8)
 
 # Adipose v Liver
-plot_grid(a, z, q, ncol = 1, align = "v")
+plot_grid(a, z, q,NULL, nrow = 2, align = "v",rel_heights = c(1,.3),greedy = T)
+
+KEGGReactome <- plot_grid(a, z, nrow = 1, align = "h")
+
+AvL <- plot_grid(KEGGReactome, q, nrow = 2, rel_heights = c(1,0.5), rel_widths = c(1,0.5), align = "v")
+
+ggsave('AvL.png',plot=AvL,dpi=200,path='./plots/',units = 'in',width=6.5,height=4.3)
+
 
 ######
 grid.arrange(a,z,q,ncol=1)
