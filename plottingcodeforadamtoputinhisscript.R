@@ -87,7 +87,7 @@ reactmouse<-ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap))
   ylab('Overlap') +
   ylim(-1, 1) +
   xlab(NULL)+
-  labs(fill = bquote(-log(P[adj]))) +
+  labs(fill = bquote(-Log(P[adj]))) +
   coord_flip()
 reactmouse
 
@@ -133,7 +133,7 @@ AvLkeggplot<-ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap)
   ylab('Overlap') +
   ylim(-1, 1) +
   xlab(NULL)+
-  labs(fill = bquote(-log(P[adj]))) +
+  labs(fill = bquote(-Log(P[adj]))) +
   coord_flip()
 AvLkeggplot
 
@@ -169,7 +169,7 @@ AvLreactplot<-ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap
   ylab('Overlap') +
   ylim(-1, 1) +
   xlab(NULL)+
-  labs(fill = bquote(-log(P[adj]))) +
+  labs(fill = bquote(-Log(P[adj]))) +
   coord_flip()
 AvLreactplot
 
@@ -216,7 +216,7 @@ AvPkeggplot<-ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap)
   ylab('Overlap') +
   ylim(-1, 1) +
   xlab(NULL)+
-  labs(fill = bquote(-log(P[adj]))) +
+  labs(fill = bquote(-Log(P[adj]))) +
   coord_flip()
 AvPkeggplot
 
@@ -252,7 +252,7 @@ AvPreactplot<-ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap
   ylab('Overlap') +
   ylim(-1, 1) +
   xlab(NULL)+
-  labs(fill = bquote(-log(P[adj]))) +
+  labs(fill = bquote(-Log(P[adj]))) +
   coord_flip()
 AvPreactplot
 
@@ -298,7 +298,7 @@ LvPkeggplot<-ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap)
   ylab('Overlap') +
   ylim(-1, 1) +
   xlab(NULL)+
-  labs(fill = bquote(-log(P[adj]))) +
+  labs(fill = bquote(-Log(P[adj]))) +
   coord_flip()
 LvPkeggplot
 
@@ -334,7 +334,7 @@ LvPreactplot<-ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap
   ylab('Overlap') +
   ylim(-1, 1) +
   xlab(NULL)+
-  labs(fill = bquote(-log(P[adj]))) +
+  labs(fill = bquote(-Log(P[adj]))) +
   coord_flip()
 LvPreactplot
 
