@@ -42,4 +42,6 @@ ggarrange(sp, bp + font("x.text", size = 30),
           ncol = 1, nrow = 2)
 ggarrange(sp, bp + font("x.text", size = 4),
           ncol = 1, nrow = 2)
+ggarrange(sp + font("x.text", size = 30), bp + font("x.text", size = 10),
+          ncol = 1, nrow = 2)
            

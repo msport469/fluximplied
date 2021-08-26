@@ -6,6 +6,7 @@ library(gridExtra)
 library(tidyr)
 library(fluximplied)
 library(cowplot)
+library(ggpubr)
 theme_set(theme_grey(base_size=8))
 #read in humans
 AdiposevLiver<-readRDS('humandata/AdiposevLiver.RDS')
@@ -13,18 +14,18 @@ AdiposevPutamen<-readRDS('humandata/AdiposevPutamen.RDS')
 LivervPutamen<-readRDS('humandata/LivervPutamen.RDS')
 
 #LFC cutoff
-inputdatgseaAvLup <- inputdatgseaAvL[inputdatgseaAvL[,"log2FoldChange"]>0.5,]
-inputdatgseaAvLdown <- inputdatgseaAvL[inputdatgseaAvL[,"log2FoldChange"]<(-0.5),]
+inputdatgseaAvLup <- AdiposevLiver[AdiposevLiver[,"log2FoldChange"]>0.5,]
+inputdatgseaAvLdown <- AdiposevLiver[AdiposevLiver[,"log2FoldChange"]<(-0.5),]
 upgenesAvL<-rownames(inputdatgseaAvLup)
 downgenesAvL<-rownames(inputdatgseaAvLdown)
 
-inputdatgseaAvPup <- inputdatgseaAvP[inputdatgseaAvP[,"log2FoldChange"]>0.5,]
-inputdatgseaAvPdown <- inputdatgseaAvP[inputdatgseaAvP[,"log2FoldChange"]<(-0.5),]
+inputdatgseaAvPup <- AdiposevPutamen[AdiposevPutamen[,"log2FoldChange"]>0.5,]
+inputdatgseaAvPdown <- AdiposevPutamen[AdiposevPutamen[,"log2FoldChange"]<(-0.5),]
 upgenesAvP<-rownames(inputdatgseaAvPup)
 downgenesAvP<-rownames(inputdatgseaAvPdown)
 
-inputdatgseaLvPup <- inputdatgseaLvP[inputdatgseaLvP[,"log2FoldChange"]>0.5,]
-inputdatgseaLvPdown <- inputdatgseaLvP[inputdatgseaLvP[,"log2FoldChange"]<(-0.5),]
+inputdatgseaLvPup <- LivervPutamen[LivervPutamen[,"log2FoldChange"]>0.5,]
+inputdatgseaLvPdown <- LivervPutamen[LivervPutamen[,"log2FoldChange"]<(-0.5),]
 upgenesLvP<-rownames(inputdatgseaLvPup)
 downgenesLvP<-rownames(inputdatgseaLvPdown)
 
@@ -328,6 +329,8 @@ gos$logpadj <- -log10(gos$Adjusted.P.value)
 gos$Overlap[1:10] <- -(gos$Overlap[1:10])
 gos$Term <- sub("\ Homo.*$", "", gos$Term) # remove Reactome-specific IDs
 gos$Term <- sub("Triggers", "\nTriggers", gos$Term) # insert linebreak
+gos$Term <- sub("repetitive\ carbohydrate", "repetitive\ carbohydrate\n", gos$Term) # insert linebreak
+gos$Term <- sub("acids\ and\ bile\ salts", "acids\nand\ bile\ salts", gos$Term) # insert linebreak
 LvPreactplot<-ggplot(gos, aes(x=reorder(Term,Overlap), y=Overlap , label=Overlap)) + 
   geom_bar(stat='identity', aes(fill=logpadj), width=.5,position="dodge")  +
   scale_fill_viridis() + 
@@ -363,43 +366,63 @@ LivervPutamenfluxplot<-fluximpliedplot
 
 #### gridarranging plots ####
 #kegg
-a<-AvLkeggplot+ggtitle('KEGG')+theme(text = element_text(size=9))
-s<-AvPkeggplot+ggtitle('KEGG')+theme(text = element_text(size=9))
-d<-LvPkeggplot+ggtitle('KEGG')+theme(text = element_text(size=9))
-plot_grid(a,s,d, ncol = 1, align = "v")
+a<-AvLkeggplot+ggtitle('KEGG')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.85, 0.15), legend.background = element_rect(fill = alpha("white", 0)))
+s<-AvPkeggplot+ggtitle('KEGG')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.85, 0.15), legend.background = element_rect(fill = alpha("white", 0)))
+d<-LvPkeggplot+ggtitle('KEGG')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.85, 0.15), legend.background = element_rect(fill = alpha("white", 0)))
+#plot_grid(a,s,d, ncol = 1, align = "v")
 
 
 
-grid.arrange(a,s,d,ncol=1)
+#grid.arrange(a,s,d,ncol=1)
 
 #react
-z<-AvLreactplot+ggtitle('Reactome')+theme(text = element_text(size=9))
-x<-AvPreactplot+ggtitle('Reactome')+theme(text = element_text(size=9))
-c<-LvPreactplot+ggtitle('Reactome')+theme(text = element_text(size=9))
-v<-reactmouse+ggtitle('Reactome')+theme(text = element_text(size=9))
-plot_grid(z,x,c,v, ncol = 1, align = "v")
+z<-AvLreactplot+ggtitle('Reactome')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.85, 0.15), legend.background = element_rect(fill = alpha("white", 0)))
+x<-AvPreactplot+ggtitle('Reactome')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.85, 0.15), legend.background = element_rect(fill = alpha("white", 0)))
+c<-LvPreactplot+ggtitle('Reactome')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.85, 0.15), legend.background = element_rect(fill = alpha("white", 0)))
+v<-reactmouse+ggtitle('Reactome')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.85, 0.15), legend.background = element_rect(fill = alpha("white", 0)))
 
-grid.arrange(z,x,c,v,ncol=1)
+#plot_grid(z,x,c,v, ncol = 1, align = "v")
+
+#grid.arrange(z,x,c,v,ncol=1)
 
 #fluximplied
-q<-AdiposevLiverfluxplot+ggtitle('fluximplied')+textGrob(gp=gpar(fontsize=3))
-w<-AdiposevPutamenfluxplot+ggtitle('fluximplied')+theme(text = element_text(size=9))
-e<-LivervPutamenfluxplot+ggtitle('fluximplied')+theme(text = element_text(size=9))
-r<-mousefluxplot+ggtitle('fluximplied')+theme(text = element_text(size=9))
-grid.arrange(q,w,e,r,ncol=2)
-bob<-plot_grid(q,w,e,r, ncol = 2)
-bob
-bob+theme(text = element_text(size=9))
-plot_grid(q,w,e,r, ncol = 2, align = "v",font_size=8)
+q<-AdiposevLiverfluxplot+ggtitle('fluximplied')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.95, 0.30), legend.background = element_rect(fill = alpha("white", 0)))
+w<-AdiposevPutamenfluxplot+ggtitle('fluximplied')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.95, 0.30), legend.background = element_rect(fill = alpha("white", 0)))
+e<-LivervPutamenfluxplot+ggtitle('fluximplied')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.95, 0.30), legend.background = element_rect(fill = alpha("white", 0)))
+r<-mousefluxplot+ggtitle('fluximplied')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.95, 0.30), legend.background = element_rect(fill = alpha("white", 0)))
+#grid.arrange(q,w,e,r,ncol=2)
+
+# bob<-plot_grid(q,w,e,r, ncol = 2)
+# bob
+# bob+theme(text = element_text(size=9))
+# plot_grid(q,w,e,r, ncol = 2, align = "v",font_size=8)
 
 # Adipose v Liver
-plot_grid(a, z, q,NULL, nrow = 2, align = "v",rel_heights = c(1,.3),greedy = T)
 
-KEGGReactome <- plot_grid(a, z, nrow = 1, align = "h")
+#AvL <- ggarrange(z + font("xy.text", size = 10), a + font("xy.text", size = 10), q + font("xy.text", size = 10),
+#                 nrow = 2, align = "v")
+AvL.top <- ggarrange(a + font("xy.text", size = 12), z + font("xy.text", size = 12), ncol = 2, align = "v")
+AvL <- ggarrange(AvL.top, q + font("xy.text", size = 12), nrow = 2, heights = c(2,1))
+ggsave('AvLplots.png', plot = AvL, dpi = 600, path = "./plots")
 
-AvL <- plot_grid(KEGGReactome, q, nrow = 2, rel_heights = c(1,0.5), rel_widths = c(1,0.5), align = "v")
+AvP.top <- ggarrange(s + font("xy.text", size = 12), x + font("xy.text", size = 12), ncol = 2, align = "v")
+AvP <- ggarrange(AvP.top, w + font("xy.text", size = 12), nrow = 2, heights = c(2,1))
+ggsave('AvPplots.png', plot = AvP, dpi = 600, path = "./plots")
 
-ggsave('AvL.png',plot=AvL,dpi=200,path='./plots/',units = 'in',width=6.5,height=4.3)
+LvP.top <- ggarrange(d + font("xy.text", size = 12), c + font("xy.text", size = 12), ncol = 2)
+LvP <- ggarrange(LvP.top, e + font("xy.text", size = 12), nrow = 2, heights = c(2,1))
+ggsave('LvPplots.png', plot = LvP, dpi = 600, path = "./plots")
+
+mouse <- ggarrange(v + font("xy.text", size = 12), r + font("xy.text", size = 12), nrow = 2, align = "v", heights = c(2,1))
+ggsave('mouse.png', plot = mouse, dpi = 600, path = "./plots")
+
+#plot_grid(a, z, q,NULL, nrow = 2, align = "v",rel_heights = c(1,.3),greedy = T)
+
+#KEGGReactome <- plot_grid(a, z, nrow = 1, align = "h")
+
+#AvL <- plot_grid(KEGGReactome, q, nrow = 2, rel_heights = c(1,0.5), rel_widths = c(1,0.5), align = "v")
+
+ggsave('AvL.png',plot=AvL,dpi=600,path='./plots/',units = 'in',width=6.5,height=4.3)
 
 
 ######
