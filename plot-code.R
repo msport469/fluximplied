@@ -379,7 +379,7 @@ d<-LvPkeggplot+ggtitle('KEGG')+theme(axis.title = element_text(size=12), text = 
 z<-AvLreactplot+ggtitle('Reactome')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.85, 0.15), legend.background = element_rect(fill = alpha("white", 0)))
 x<-AvPreactplot+ggtitle('Reactome')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.85, 0.15), legend.background = element_rect(fill = alpha("white", 0)))
 c<-LvPreactplot+ggtitle('Reactome')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.85, 0.15), legend.background = element_rect(fill = alpha("white", 0)))
-v<-reactmouse+ggtitle('Reactome')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.85, 0.15), legend.background = element_rect(fill = alpha("white", 0)))
+v<-reactmouse+ggtitle('Reactome')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.90, 0.125), legend.background = element_rect(fill = alpha("white", 0)))
 
 #plot_grid(z,x,c,v, ncol = 1, align = "v")
 
@@ -389,7 +389,7 @@ v<-reactmouse+ggtitle('Reactome')+theme(axis.title = element_text(size=12), text
 q<-AdiposevLiverfluxplot+ggtitle('fluximplied')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.95, 0.30), legend.background = element_rect(fill = alpha("white", 0)))
 w<-AdiposevPutamenfluxplot+ggtitle('fluximplied')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.95, 0.30), legend.background = element_rect(fill = alpha("white", 0)))
 e<-LivervPutamenfluxplot+ggtitle('fluximplied')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.95, 0.30), legend.background = element_rect(fill = alpha("white", 0)))
-r<-mousefluxplot+ggtitle('fluximplied')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.95, 0.30), legend.background = element_rect(fill = alpha("white", 0)))
+r<-mousefluxplot+ggtitle('fluximplied')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.90, 0.30), legend.background = element_rect(fill = alpha("white", 0)))
 #grid.arrange(q,w,e,r,ncol=2)
 
 # bob<-plot_grid(q,w,e,r, ncol = 2)
