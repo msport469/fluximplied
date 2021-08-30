@@ -156,3 +156,11 @@ LvP.down.results <- enrichr(LvP.down, databases = "Reactome_2016")
 plotEnrich(LvP.up.results[[1]], showTerms = 20, numChar = 40, y = "Count", orderBy = "P.value")
 plotEnrich(LvP.down.results[[1]], showTerms = 20, numChar = 40, y = "Count", orderBy = "P.value")
 
+sessionInfo()
+#citations, using a method as described in https://stackoverflow.com/questions/27535628/how-do-i-tell-which-r-packages-to-cite-in-my-paper 
+packages_in_use <- c(sessionInfo()$basePkgs, names( sessionInfo()$loadedOnly ) )
+the_citations_list <- lapply( X=packages_in_use, FUN=citation)
+sink(file='the_citation_list.txt')
+the_citations_list
+sink(file=NULL)
+####### FIN #######
