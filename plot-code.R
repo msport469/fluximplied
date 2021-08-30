@@ -8,6 +8,7 @@ library(fluximplied)
 library(cowplot)
 library(ggpubr)
 theme_set(theme_grey(base_size=8))
+
 #read in humans
 AdiposevLiver<-readRDS('humandata/AdiposevLiver.RDS')
 AdiposevPutamen<-readRDS('humandata/AdiposevPutamen.RDS')
@@ -54,8 +55,6 @@ list_up <- c(upgenes)
 list_down <- c(downgenes)
 eup <- enrichr(list_up, dbs)
 edown <- enrichr(list_down, dbs)
-
-
 
 #Reactome 2016 mouse
 up <- eup$Reactome_2016
@@ -181,7 +180,6 @@ write.csv(eup$Reactome_2016,'./enrichrcsvs/AvL-upReactome_2016_Human-LFC_0.5_.cs
 
 write.csv(edown$KEGG_2019_Human,'./enrichrcsvs/AvL-downKEGG_2019_Human-LFC_0.5_.csv')
 write.csv(edown$Reactome_2016,'./enrichrcsvs/AvL-downReactome_2016_Human-LFC_0.5_.csv')
-
 
 #AvP
 list_up <- c(upgenesAvP)
@@ -369,11 +367,6 @@ LivervPutamenfluxplot<-fluximpliedplot
 a<-AvLkeggplot+ggtitle('KEGG')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.85, 0.15), legend.background = element_rect(fill = alpha("white", 0)))
 s<-AvPkeggplot+ggtitle('KEGG')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.85, 0.15), legend.background = element_rect(fill = alpha("white", 0)))
 d<-LvPkeggplot+ggtitle('KEGG')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.85, 0.15), legend.background = element_rect(fill = alpha("white", 0)))
-#plot_grid(a,s,d, ncol = 1, align = "v")
-
-
-
-#grid.arrange(a,s,d,ncol=1)
 
 #react
 z<-AvLreactplot+ggtitle('Reactome')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.85, 0.15), legend.background = element_rect(fill = alpha("white", 0)))
@@ -381,26 +374,13 @@ x<-AvPreactplot+ggtitle('Reactome')+theme(axis.title = element_text(size=12), te
 c<-LvPreactplot+ggtitle('Reactome')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.85, 0.15), legend.background = element_rect(fill = alpha("white", 0)))
 v<-reactmouse+ggtitle('Reactome')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.90, 0.125), legend.background = element_rect(fill = alpha("white", 0)))
 
-#plot_grid(z,x,c,v, ncol = 1, align = "v")
-
-#grid.arrange(z,x,c,v,ncol=1)
-
 #fluximplied
 q<-AdiposevLiverfluxplot+ggtitle('fluximplied')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.95, 0.30), legend.background = element_rect(fill = alpha("white", 0)))
 w<-AdiposevPutamenfluxplot+ggtitle('fluximplied')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.95, 0.30), legend.background = element_rect(fill = alpha("white", 0)))
 e<-LivervPutamenfluxplot+ggtitle('fluximplied')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.95, 0.30), legend.background = element_rect(fill = alpha("white", 0)))
 r<-mousefluxplot+ggtitle('fluximplied')+theme(axis.title = element_text(size=12), text = element_text(size=9), plot.title = element_text(size=14, hjust = 0.5), legend.position = c(0.90, 0.30), legend.background = element_rect(fill = alpha("white", 0)))
-#grid.arrange(q,w,e,r,ncol=2)
 
-# bob<-plot_grid(q,w,e,r, ncol = 2)
-# bob
-# bob+theme(text = element_text(size=9))
-# plot_grid(q,w,e,r, ncol = 2, align = "v",font_size=8)
-
-# Adipose v Liver
-
-#AvL <- ggarrange(z + font("xy.text", size = 10), a + font("xy.text", size = 10), q + font("xy.text", size = 10),
-#                 nrow = 2, align = "v")
+# Plot arrangement
 AvL.top <- ggarrange(a + font("xy.text", size = 12), z + font("xy.text", size = 12), ncol = 2, align = "v")
 AvL <- ggarrange(AvL.top, q + font("xy.text", size = 12), nrow = 2, heights = c(2,1))
 ggsave('AvLplots.png', plot = AvL, dpi = 600, path = "./plots")
@@ -416,13 +396,11 @@ ggsave('LvPplots.png', plot = LvP, dpi = 600, path = "./plots")
 mouse <- ggarrange(v + font("xy.text", size = 12), r + font("xy.text", size = 12), nrow = 2, align = "v", heights = c(2,1))
 ggsave('mouse.png', plot = mouse, dpi = 600, path = "./plots")
 
-
 sessionInfo()
 #citations, using a method as described in https://stackoverflow.com/questions/27535628/how-do-i-tell-which-r-packages-to-cite-in-my-paper 
 packages_in_use <- c(sessionInfo()$basePkgs, names( sessionInfo()$loadedOnly ) )
 the_citations_list <- lapply( X=packages_in_use, FUN=citation)
 the_citations_list
 sink(file='the_citation_list.txt')
-the_citations_list
 sink(file=NULL)
 ####### FIN #######
