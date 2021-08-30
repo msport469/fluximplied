@@ -416,23 +416,13 @@ ggsave('LvPplots.png', plot = LvP, dpi = 600, path = "./plots")
 mouse <- ggarrange(v + font("xy.text", size = 12), r + font("xy.text", size = 12), nrow = 2, align = "v", heights = c(2,1))
 ggsave('mouse.png', plot = mouse, dpi = 600, path = "./plots")
 
-#plot_grid(a, z, q,NULL, nrow = 2, align = "v",rel_heights = c(1,.3),greedy = T)
 
-#KEGGReactome <- plot_grid(a, z, nrow = 1, align = "h")
-
-#AvL <- plot_grid(KEGGReactome, q, nrow = 2, rel_heights = c(1,0.5), rel_widths = c(1,0.5), align = "v")
-
-ggsave('AvL.png',plot=AvL,dpi=600,path='./plots/',units = 'in',width=6.5,height=4.3)
-
-
-######
-grid.arrange(a,z,q,ncol=1)
-grid.arrange(arrangeGrob(a,z),q,nrow=3)
-#AvLplots<-grid.arrange(arrangeGrob(a,z,q,nrow=2,widths=c(0.5,0.5,1)))
-
-
-#ggsave('humanbarplots.png',plot=barplots,dpi=600,path='./compare/',units = 'cm',width=16.6,height=6,scale=2)
-
-
-
-
+sessionInfo()
+#citations, using a method as described in https://stackoverflow.com/questions/27535628/how-do-i-tell-which-r-packages-to-cite-in-my-paper 
+packages_in_use <- c(sessionInfo()$basePkgs, names( sessionInfo()$loadedOnly ) )
+the_citations_list <- lapply( X=packages_in_use, FUN=citation)
+the_citations_list
+sink(file='the_citation_list.txt')
+the_citations_list
+sink(file=NULL)
+####### FIN #######
