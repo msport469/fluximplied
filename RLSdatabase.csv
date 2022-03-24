@@ -8,5 +8,5 @@ Pygl,110095,PYGL,5836,Glycogenolysis,00855
 Ppat,231327,PPAT,5471,De novo purine synthesis,00230
 Cad,69719,CAD,790,De novo pyrimidine synthesis,00240
 Cps1,227231,CPS1,1373,Urea cycle,00029
-,Acaca,107476,ACACA,31,Fatty acid synthesis,00061
-,Cpt1a,12894,CPT1A,1374,Beta oxidation of fatty acids,00086
+Acaca,107476,ACACA,31,Fatty acid synthesis,00061
+Cpt1a,12894,CPT1A,1374,Beta oxidation of fatty acids,00086
